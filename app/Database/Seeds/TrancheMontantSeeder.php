@@ -24,7 +24,7 @@ class TrancheMontantSeeder extends Seeder
         ];
 
         // ids: 2 = retrait, 3 = transfert (voir TypesOperationSeeder)
-        foreach ([2, 3] as $typeOperationId) {
+        foreach ([1, 2, 3] as $typeOperationId) {
             $data = [];
             foreach ($tranches as $t) {
                 $data[] = [

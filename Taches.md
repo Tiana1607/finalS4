@@ -1,7 +1,6 @@
 # Liste des taches Projet Opérateur S4 Final Exam
 
 ## BDD: 
-<<<<<<< HEAD
 - Migration table admins [x] Rovatiana
 - Migration table prefixes [x] Rovatiana
 - Migration table types_operation [x] Rovatiana
@@ -9,15 +8,6 @@
 - Migration table transactions [x] Rovatiana
 - Migration table clients [x] Rovatiana
 - Seeder client de test []
-=======
-- Migration table admins []
-- Migration table prefixes []
-- Migration table types_operation []
-- Migration table baremes []
-- Migration table transactions []
-- Migration table clients []
-- Seeder donneesTest []
->>>>>>> origin/Jeremie_v1
 
 ## Coté Opérateur :
 
@@ -47,15 +37,15 @@
 ## Coté Client :
 
 - Login()
-    - ClientModel (recherche par téléphone) []
-    - Fonction vérifier existence + créer automatiquement si absent []
-    - Session client (session()->set(...)) []
-    - Filter ClientAuth (protection des pages dépôt/retrait/transfert/historique) []
-    - Vue []
+    - ClientModel (recherche par téléphone) [x]
+    - Fonction vérifier existence + créer automatiquement si absent [x]
+    - Session client (session()->set(...)) [x]
+    - Filter ClientAuth (protection des pages dépôt/retrait/transfert/historique) [x]
+    - Vue [x]
 - Page Depot 
-    - Fonction validation montant (positif, non vide) []
-    - Fonction créditer le solde + enregistrer la transaction []
-    - Vue []
+    - Fonction validation montant (positif, non vide) [x]
+    - Fonction créditer le solde + enregistrer la transaction [x]
+    - Vue [x]
 - Page Retrait
     - Fonction validation montant + vérification solde suffisant (solde >= montant + frais) []
     - Fonction calcul du frais via le barème opérateur (type = retrait) []

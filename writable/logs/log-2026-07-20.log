@@ -192,6 +192,7 @@ in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
 13 SYSTEMPATH/Boot.php(442): CodeIgniter\CLI\Console->run()
 14 SYSTEMPATH/Boot.php(166): CodeIgniter\Boot::runCommand()
 15 ROOTPATH/spark(87): CodeIgniter\Boot::bootSpark()
+<<<<<<< HEAD
 DEBUG - 2026-07-20 08:07:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 08:10:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 08:10:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
@@ -219,3 +220,274 @@ DEBUG - 2026-07-20 08:18:35 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 08:21:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 08:21:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 08:21:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+=======
+ERROR - 2026-07-20 07:53:13 --> NOT NULL constraint failed: clients.telephone
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Models/Client/ClientsModel.php(61): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/Client/AuthController.php(30): App\Models\Client\ClientsModel->findOrCreateByTelephone()
+10 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\AuthController->attemptLogin()
+11 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-07-20 07:53:13 --> CodeIgniter\Database\Exceptions\DatabaseException: NOT NULL constraint failed: clients.telephone
+[Method: POST, Route: client/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 865.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Models/Client/ClientsModel.php(61): CodeIgniter\Model->insert()
+ 6 APPPATH/Controllers/Client/AuthController.php(30): App\Models\Client\ClientsModel->findOrCreateByTelephone()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\AuthController->attemptLogin()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-07-20 07:53:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: NOT NULL constraint failed: clients.telephone
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
+ 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Models/Client/ClientsModel.php(61): CodeIgniter\Model->insert()
+ 8 APPPATH/Controllers/Client/AuthController.php(30): App\Models\Client\ClientsModel->findOrCreateByTelephone()
+ 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\AuthController->attemptLogin()
+10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-07-20 07:53:13 --> [Caused by] SQLite3Exception: NOT NULL constraint failed: clients.telephone
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Models/Client/ClientsModel.php(61): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/Client/AuthController.php(30): App\Models\Client\ClientsModel->findOrCreateByTelephone()
+10 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\AuthController->attemptLogin()
+11 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+WARNING - 2026-07-20 07:57:53 --> [DEPRECATED] trim(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH/Controllers/Client/ClientsController.php on line 26.
+ 1 APPPATH/Controllers/Client/ClientsController.php(26): trim(null)
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->login()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Client\ClientsController))
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-07-20 07:57:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:58:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:58:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:58:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:59:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:59:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 07:59:01 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/dashboard.php"
+[Method: GET, Route: client/dashboard]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/Client/ClientsController.php(52): view()
+ 4 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->dashboard()
+ 5 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 07:59:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:59:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:59:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:59:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:59:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:00:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:00:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:00:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:00:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:00:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:02:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:09:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:09:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:26:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:26:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:26:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:26:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:26:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:26:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:27:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 08:27:12 --> no such table: transactions
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/Client/ClientsController.php(98): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->depot()
+10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-07-20 08:27:12 --> CodeIgniter\Database\Exceptions\DatabaseException: no such table: transactions
+[Method: POST, Route: client/depot]
+in SYSTEMPATH/Database/BaseConnection.php on line 865.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/Client/ClientsController.php(98): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->depot()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-07-20 08:27:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: no such table: transactions
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
+ 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/Client/ClientsController.php(98): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->depot()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-07-20 08:27:12 --> [Caused by] SQLite3Exception: no such table: transactions
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/Client/ClientsController.php(98): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->depot()
+10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 08:27:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 08:27:32 --> ErrorException: Trying to access array offset on null
+[Method: POST, Route: client/depot]
+in APPPATH/Controllers/Client/ClientsController.php on line 94.
+ 1 APPPATH/Controllers/Client/ClientsController.php(94): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->depot()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 08:27:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 08:27:35 --> ErrorException: Trying to access array offset on null
+[Method: GET, Route: client/depot]
+in APPPATH/Views/client/depot.php on line 33.
+ 1 APPPATH/Views/client/depot.php(33): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/rovatians/Documents/ITU/S4/SI/finalS4_v1/app/Views/client/depot.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Client/ClientsController.php(74): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->showDepotForm()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 08:27:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 08:27:35 --> ErrorException: Trying to access array offset on null
+[Method: GET, Route: client/dashboard]
+in APPPATH/Views/client/dashboard.php on line 27.
+ 1 APPPATH/Views/client/dashboard.php(27): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/rovatians/Documents/ITU/S4/SI/finalS4_v1/app/Views/client/dashboard.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Client/ClientsController.php(65): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->dashboard()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 08:27:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:27:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:27:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:27:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:27:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:28:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:28:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 08:28:34 --> ErrorException: Trying to access array offset on null
+[Method: GET, Route: client/depot]
+in APPPATH/Views/client/depot.php on line 33.
+ 1 APPPATH/Views/client/depot.php(33): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/rovatians/Documents/ITU/S4/SI/finalS4_v1/app/Views/client/depot.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Client/ClientsController.php(74): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->showDepotForm()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 08:28:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:28:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:28:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:28:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:28:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:29:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:29:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:31:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 08:31:55 --> ErrorException: Trying to access array offset on null
+[Method: GET, Route: client/depot]
+in APPPATH/Views/client/depot.php on line 33.
+ 1 APPPATH/Views/client/depot.php(33): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/rovatians/Documents/ITU/S4/SI/finalS4_v1/app/Views/client/depot.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Client/ClientsController.php(74): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Client\ClientsController->showDepotForm()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 08:32:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:32:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:32:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:32:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:33:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:34:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:34:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:34:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:34:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 08:34:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+>>>>>>> rova_v1
