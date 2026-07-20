@@ -5,7 +5,7 @@ CREATE TABLE admins (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     nom             TEXT NOT NULL,
     email           TEXT NOT NULL UNIQUE,
-    password        TEXT NOT NULL,         
+    password        TEXT NOT NULL,
     date_creation   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -20,24 +20,34 @@ CREATE TABLE clients (
 );
 
 -- ---------------------------------------------------
--- 3. PREFIXES valides configurés par l'opérateur
+-- 3. OPERATEURS (nos opérateurs et les autres)
+-- ---------------------------------------------------
+CREATE TABLE operateurs (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom      TEXT NOT NULL,
+    est_nous INTEGER NOT NULL DEFAULT 0 CHECK (est_nous IN (0,1))
+);
+
+-- ---------------------------------------------------
+-- 4. PREFIXES valides configurés par l'opérateur
 -- ---------------------------------------------------
 CREATE TABLE prefixes (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    prefixe         TEXT NOT NULL UNIQUE,   -- ex: "033", "037"
+    prefixe         TEXT NOT NULL UNIQUE,
+    operateur_id    INTEGER REFERENCES operateurs(id),
     date_creation   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ---------------------------------------------------
--- 4. TYPES D'OPERATION (dépôt, retrait, transfert)
+-- 5. TYPES D'OPERATION (dépôt, retrait, transfert)
 -- ---------------------------------------------------
 CREATE TABLE types_operation (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    libelle         TEXT NOT NULL UNIQUE    -- 'depot' | 'retrait' | 'transfert'
+    libelle         TEXT NOT NULL UNIQUE
 );
 
 -- ---------------------------------------------------
--- 5. tranche_montant : tranches de frais par type d'opération
+-- 6. TRANCHE_MONTANT : tranches de frais par type d'opération
 -- ---------------------------------------------------
 CREATE TABLE tranche_montant (
     id                  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,32 +59,59 @@ CREATE TABLE tranche_montant (
 );
 
 -- ---------------------------------------------------
--- 6. TRANSACTIONS (historique + calcul des gains)
+-- 7. TRANSFERTS_GROUPES (envoi multiple)
+-- ---------------------------------------------------
+CREATE TABLE transferts_groupes (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id       INTEGER NOT NULL,
+    montant_total   REAL NOT NULL,
+    nb_destinataires INTEGER NOT NULL,
+    date_operation  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
+);
+
+-- ---------------------------------------------------
+-- 8. TRANSACTIONS (historique + calcul des gains)
 -- ---------------------------------------------------
 CREATE TABLE transactions (
-    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-    client_id           INTEGER NOT NULL,       -- expéditeur / initiateur
-    destinataire_id     INTEGER,                -- rempli uniquement pour un transfert
-    type_operation_id   INTEGER NOT NULL,
-    montant             REAL NOT NULL CHECK (montant > 0),
-    frais                REAL NOT NULL DEFAULT 0,
-    date_operation      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id                          INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id                   INTEGER NOT NULL,
+    destinataire_id             INTEGER,
+    type_operation_id           INTEGER NOT NULL,
+    montant                     REAL NOT NULL CHECK (montant > 0),
+    frais                       REAL NOT NULL DEFAULT 0,
+    operateur_destinataire_id   INTEGER REFERENCES operateurs(id),
+    commission_externe          REAL DEFAULT 0,
+    groupe_id                   INTEGER REFERENCES transferts_groupes(id),
+    date_operation              DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
     FOREIGN KEY (destinataire_id) REFERENCES clients(id) ON DELETE SET NULL,
     FOREIGN KEY (type_operation_id) REFERENCES types_operation(id)
 );
 
---  Types d'opération
+
+-- ======================================================
+-- SEED DATA
+-- ======================================================
+
+-- Types d'opération
 INSERT INTO types_operation (libelle) VALUES ('depot');
 INSERT INTO types_operation (libelle) VALUES ('retrait');
 INSERT INTO types_operation (libelle) VALUES ('transfert');
- 
--- Préfixes valides (exemple de l'énoncé)
-INSERT INTO prefixes (prefixe) VALUES ('033');
-INSERT INTO prefixes (prefixe) VALUES ('037');
- 
--- Barème de frais pour le RETRAIT (type_operation_id = 2), d'après l'exemple du sujet
-INSERT INTO baremes (type_operation_id, montant_min, montant_max, frais) VALUES
+
+-- Opérateurs
+INSERT INTO operateurs (nom, est_nous) VALUES ('MoovMoney', 1);
+INSERT INTO operateurs (nom, est_nous) VALUES ('Airtel Money', 0);
+INSERT INTO operateurs (nom, est_nous) VALUES ('Telma', 0);
+
+-- Préfixes valides (1 = MoovMoney, 2 = Airtel Money, 3 = Telma)
+INSERT INTO prefixes (prefixe, operateur_id) VALUES ('033', 1);
+INSERT INTO prefixes (prefixe, operateur_id) VALUES ('037', 1);
+INSERT INTO prefixes (prefixe, operateur_id) VALUES ('032', 2);
+INSERT INTO prefixes (prefixe, operateur_id) VALUES ('031', 3);
+
+-- Barème de frais pour le RETRAIT (type_operation_id = 2)
+INSERT INTO tranche_montant (type_operation_id, montant_min, montant_max, frais) VALUES
 (2, 100,      1000,     50),
 (2, 1001,     5000,     50),
 (2, 5001,     10000,    100),
@@ -85,10 +122,9 @@ INSERT INTO baremes (type_operation_id, montant_min, montant_max, frais) VALUES
 (2, 250001,   500000,   1500),
 (2, 500001,   1000000,  2500),
 (2, 1000001,  2000000,  3000);
- 
--- Barème de frais pour le TRANSFERT (type_operation_id = 3), même grille de départ
--- (à ajuster indépendamment côté admin, les deux barèmes sont désormais séparés)
-INSERT INTO baremes (type_operation_id, montant_min, montant_max, frais) VALUES
+
+-- Barème de frais pour le TRANSFERT (type_operation_id = 3)
+INSERT INTO tranche_montant (type_operation_id, montant_min, montant_max, frais) VALUES
 (3, 100,      1000,     50),
 (3, 1001,     5000,     50),
 (3, 5001,     10000,    100),
@@ -99,32 +135,3 @@ INSERT INTO baremes (type_operation_id, montant_min, montant_max, frais) VALUES
 (3, 250001,   500000,   1500),
 (3, 500001,   1000000,  2500),
 (3, 1000001,  2000000,  3000);
- 
--- Apport à la v2
- 
-CREATE TABLE operateurs (
-    id       INTEGER PRIMARY KEY AUTOINCREMENT,
-    nom      TEXT NOT NULL,
-    est_nous INTEGER NOT NULL DEFAULT 0 CHECK (est_nous IN (0,1))
-);
-
-ALTER TABLE prefixes ADD COLUMN operateur_id INTEGER REFERENCES operateurs(id);
-
--- modification de la table transaction
-
-ALTER TABLE transactions ADD COLUMN operateur_destinataire_id INTEGER REFERENCES operateurs(id);
-ALTER TABLE transactions ADD COLUMN commission_externe REAL DEFAULT 0;
-
--- ALTER TABLE transactions ADD COLUMN frais_retrait_inclus INTEGER DEFAULT 0 CHECK (frais_retrait_inclus IN (0,1));
--- ALTER TABLE transactions ADD COLUMN montant_frais_retrait_couvert REAL DEFAULT 0;
-
-CREATE TABLE transferts_groupes (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    client_id     INTEGER NOT NULL,
-    montant_total REAL NOT NULL,
-    nb_destinataires INTEGER NOT NULL,
-    date_operation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (client_id) REFERENCES clients(id)
-);
-
-ALTER TABLE transactions ADD COLUMN groupe_id INTEGER REFERENCES transferts_groupes(id);

@@ -9,6 +9,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call('TypesOperationSeeder');
+        $this->call('OperateursSeeder');
         $this->call('PrefixesSeeder');
         $this->call('TrancheMontantSeeder');
         $this->call('AdminSeeder');
