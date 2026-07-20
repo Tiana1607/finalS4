@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index2');
+$routes->get('/admin', 'Home::index2');
 
 $routes->group('admin', function ($routes) {
     $routes->get('login', 'Operateur\AuthController::login');
