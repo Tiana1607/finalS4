@@ -17,6 +17,15 @@ class PrefixeController extends BaseController
         $this->operateurModel = new OperateurModel();
     }   
 
+    public function create()
+    {
+        $data = [
+            'operateurs' => $this->operateurModel->getOperateursExterne(),
+        ];
+
+        return view('admin/prefixes_ajouter', $data);
+    }
+
     public function index()
     {
         $data = [

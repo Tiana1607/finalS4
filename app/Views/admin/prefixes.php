@@ -48,50 +48,11 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Formulaire d'ajout -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Ajouter un préfixe</h5>
-                    <form action="/admin/prefixes" method="post" class="row g-2 align-items-end">
-                        <?= csrf_field() ?>
-
-                        <div class="col-md-4">
-                            <label class="form-label">Préfixe</label>
-                            <input type="text" name="prefixe" class="form-control" placeholder="Ex: 034" value="<?= old('prefixe') ?>" required>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="form-label d-block">Appartenance</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="appartenance" id="app_nous" value="nous" checked>
-                                <label class="form-check-label" for="app_nous">Nous</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="appartenance" id="app_autre" value="autre">
-                                <label class="form-check-label" for="app_autre">Autre opérateur</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3" id="operateurSelectWrapper" style="display:none;">
-                            <label class="form-label">Opérateur</label>
-                            <select name="operateur_id" class="form-select">
-                                <option value="">-- Choisir --</option>
-                                <?php foreach ($operateurs as $op): ?>
-                                    <option value="<?= esc($op['id']) ?>"><?= esc($op['nom']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php if (empty($operateurs)): ?>
-                                <div class="form-text text-danger">
-                                    Aucun opérateur externe créé.
-                                </div>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary w-100">Ajouter</button>
-                        </div>
-                    </form>
-                </div>
+            <!-- Bouton ajouter -->
+            <div class="mb-4">
+                <a href="/admin/prefixes/ajouter" class="btn btn-primary">
+                    + Ajouter un préfixe
+                </a>
             </div>
 
             <!-- Nos préfixes -->
@@ -177,3 +138,12 @@
                     <?php endif; ?>
                 </div>
             </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/script.js') ?>"></script>
+</body>
+</html>
