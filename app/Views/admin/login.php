@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Connexion Opérateur</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
 </head>
 <body class="bg-light d-flex align-items-center" style="min-height: 100vh;">
 <div class="container">

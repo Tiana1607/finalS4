@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Situation des Gains</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container py-5">
@@ -14,7 +14,7 @@
             <h3 class="text-center mb-4">Situation des Gains</h3>
 
             <!-- ─── Cartes résumé ─── -->
-            <div class="row g-3 mb-5">
+            <div class="row g-3 mb-4">
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
@@ -39,6 +39,26 @@
                             <h6 class="text-muted mb-1">Gains Totaux</h6>
                             <h3 class="text-dark mb-1"><?= number_format($totalGeneral, 0, ',', '.') ?> Ar</h3>
                             <small class="text-muted"><?= $nbRetrait + $nbTransfert ?> transaction<?= ($nbRetrait + $nbTransfert) > 1 ? 's' : '' ?></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── Graphiques ─── -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-title text-center">Gains par type (barres)</h6>
+                            <canvas id="barChart" height="220"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-title text-center">Répartition des gains (camembert)</h6>
+                            <canvas id="pieChart" height="220"></canvas>
                         </div>
                     </div>
                 </div>
@@ -126,5 +146,47 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+const labels = ['Retraits', 'Transferts'];
+const data   = [<?= json_encode($totalRetrait) ?>, <?= json_encode($totalTransfert) ?>];
+const colors = ['#0d6efd', '#198754'];
+
+// Bar chart
+new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Gains (Ar)',
+            data: data,
+            backgroundColor: colors
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+// Pie chart
+new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            data: data,
+            backgroundColor: colors
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
 </body>
 </html>

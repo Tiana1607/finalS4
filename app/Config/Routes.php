@@ -26,6 +26,9 @@ $routes->group('admin', function ($routes) {
         $routes->post('frais/supprimer/(:num)', 'Operateur\FraisController::delete/$1');
 
         $routes->get('gains', 'Operateur\GainController::index');
+
+        $routes->get('clients', 'Operateur\ClientController::index');
+        $routes->get('clients/detail/(:num)', 'Operateur\ClientController::detail/$1');
     });
 });
 

@@ -78,4 +78,32 @@ class TransactionModel extends Model
 
         return $builder->get()->getResultArray();
     }
+
+    
+    //  Les transactions d'un client donné (émetteur ou destinataire).
+     
+    public function getTransactionsByClient(int $clientId): array
+    {
+        $builder = $this->db->table('transactions t');
+        $builder->select('
+            t.id,
+            t.montant,
+            t.frais,
+            t.type_operation_id,
+            t.date_operation,
+            to2.libelle        AS type_libelle,
+            c_client.telephone AS client_tel,
+            c_dest.telephone   AS destinataire_tel
+        ');
+        $builder->join('types_operation to2', 'to2.id = t.type_operation_id', 'left');
+        $builder->join('clients c_client', 'c_client.id = t.client_id', 'left');
+        $builder->join('clients c_dest', 'c_dest.id = t.destinataire_id', 'left');
+        $builder->groupStart();
+            $builder->where('t.client_id', $clientId);
+            $builder->orWhere('t.destinataire_id', $clientId);
+        $builder->groupEnd();
+        $builder->orderBy('t.date_operation', 'DESC');
+
+        return $builder->get()->getResultArray();
+    }
 }
