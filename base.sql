@@ -5,7 +5,7 @@ CREATE TABLE admins (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     nom             TEXT NOT NULL,
     email           TEXT NOT NULL UNIQUE,
-    mot_de_passe    TEXT NOT NULL,         
+    password        TEXT NOT NULL,         
     date_creation   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE admins (
 CREATE TABLE clients (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     telephone       TEXT NOT NULL UNIQUE,
-    solde           REAL NOT NULL DEFAULT 0 CHECK (solde >= 0),
+    solde           REAL NOT NULL DEFAULT 0,
     date_creation   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -45,8 +45,6 @@ CREATE TABLE tranche_montant (
     montant_min         REAL NOT NULL,
     montant_max         REAL NOT NULL,
     frais               REAL NOT NULL,
-    CHECK (montant_max > montant_min),
-    CHECK (frais >= 0),
     FOREIGN KEY (type_operation_id) REFERENCES types_operation(id) ON DELETE CASCADE
 );
 
@@ -65,8 +63,4 @@ CREATE TABLE transactions (
     FOREIGN KEY (destinataire_id) REFERENCES clients(id) ON DELETE SET NULL,
     FOREIGN KEY (type_operation_id) REFERENCES types_operation(id)
 );
-
-CREATE INDEX idx_transactions_client ON transactions(client_id);
-CREATE INDEX idx_transactions_type ON transactions(type_operation_id);
-CREATE INDEX idx_tranche_montant_type ON tranche_montant(type_operation_id);
 
