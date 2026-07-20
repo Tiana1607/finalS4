@@ -16,8 +16,9 @@ $routes->group('admin', function ($routes) {
         $routes->get('dashboard', 'Operateur\DashboardController::index');
 
         $routes->get('prefixes', 'Operateur\PrefixeController::index');
+        $routes->get('prefixes/ajouter', 'Operateur\PrefixeController::create');
         $routes->post('prefixes', 'Operateur\PrefixeController::store');
-        $routes->get('prefixes/delete/(:num)', 'Operateur\PrefixeController::delete/$1');
+        $routes->post('prefixes/delete/(:num)', 'Operateur\PrefixeController::delete/$1');
 
         $routes->get('frais', 'Operateur\FraisController::index');
         $routes->post('frais/ajouter', 'Operateur\FraisController::store');
