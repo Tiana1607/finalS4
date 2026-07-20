@@ -24,6 +24,8 @@ $routes->group('admin', function ($routes) {
         $routes->get('frais/modifier/(:num)', 'Operateur\FraisController::edit/$1');
         $routes->post('frais/modifier/(:num)', 'Operateur\FraisController::update/$1');
         $routes->post('frais/supprimer/(:num)', 'Operateur\FraisController::delete/$1');
+
+        $routes->get('gains', 'Operateur\GainController::index');
     });
 });
 
