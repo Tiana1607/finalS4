@@ -50,7 +50,7 @@ class AuthController extends BaseController
             'isAdminLoggedIn' => true,
         ]);
 
-        return redirect()->to('/admin/dashboard');
+        return redirect()->to('/admin/prefixes');
     }
 
     public function logout()

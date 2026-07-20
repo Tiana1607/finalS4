@@ -1,7 +1,6 @@
 # Liste des taches Projet Opérateur S4 Final Exam
 
 ## BDD: 
-<<<<<<< HEAD
 - Migration table admins [x] Rovatiana
 - Migration table prefixes [x] Rovatiana
 - Migration table types_operation [x] Rovatiana
@@ -9,15 +8,6 @@
 - Migration table transactions [x] Rovatiana
 - Migration table clients [x] Rovatiana
 - Seeder client de test []
-=======
-- Migration table admins []
-- Migration table prefixes []
-- Migration table types_operation []
-- Migration table baremes []
-- Migration table transactions []
-- Migration table clients []
-- Seeder donneesTest []
->>>>>>> origin/Jeremie_v1
 
 ## Coté Opérateur :
 
