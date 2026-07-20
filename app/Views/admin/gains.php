@@ -29,7 +29,7 @@
 
             <!-- ─── Cartes résumé ─── -->
             <div class="row g-3 mb-4">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains — Retraits</h6>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains — Transferts</h6>
@@ -47,12 +47,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
-                            <h6 class="text-muted mb-1">Gains Totaux</h6>
-                            <h3 class="solde-display mb-1"><?= number_format($totalGeneral, 0, ',', '.') ?> Ar</h3>
-                            <small class="text-muted"><?= $nbRetrait + $nbTransfert ?> transaction<?= ($nbRetrait + $nbTransfert) > 1 ? 's' : '' ?></small>
+                            <h6 class="text-muted mb-1">Gains Internes</h6>
+                            <h3 class="mb-1 text-success"><?= number_format($totalInterne, 0, ',', '.') ?> Ar</h3>
+                            <small class="text-muted">Frais perçus (nos ops)</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body text-center">
+                            <h6 class="text-muted mb-1">Commissions Externes</h6>
+                            <h3 class="mb-1 text-danger"><?= number_format($totalExterne, 0, ',', '.') ?> Ar</h3>
+                            <small class="text-muted">Dûs aux opérateurs externes</small>
                         </div>
                     </div>
                 </div>
@@ -71,10 +80,76 @@
                 <div class="col-md-6">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h6 class="card-title text-center">Répartition des gains (camembert)</h6>
+                            <h6 class="card-title text-center">Répartition interne / externe (camembert)</h6>
                             <canvas id="pieChart" height="220"></canvas>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- ─── Gains Internes ─── -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Gains Internes (nos frais perçus)</h5>
+                </div>
+                <div class="card-body">
+                    <?php if (empty($gainsInternes)): ?>
+                        <p class="text-muted mb-0">Aucun gain interne enregistré.</p>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Type d'opération</th>
+                                        <th>Nombre</th>
+                                        <th>Total frais (Ar)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($gainsInternes as $gi): ?>
+                                        <tr>
+                                            <td><?= esc(ucfirst($gi['libelle'])) ?></td>
+                                            <td><?= (int) $gi['nombre'] ?></td>
+                                            <td class="fw-bold text-success"><?= number_format($gi['total_frais'], 0, ',', '.') ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- ─── Gains Externes ─── -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Commissions Externes (dues aux opérateurs)</h5>
+                </div>
+                <div class="card-body">
+                    <?php if (empty($gainsExternes)): ?>
+                        <p class="text-muted mb-0">Aucune commission externe enregistrée.</p>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Opérateur</th>
+                                        <th>Nombre de transferts</th>
+                                        <th>Total commission (Ar)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($gainsExternes as $ge): ?>
+                                        <tr>
+                                            <td><?= esc($ge['operateur_nom']) ?></td>
+                                            <td><?= (int) $ge['nombre'] ?></td>
+                                            <td class="fw-bold text-danger"><?= number_format($ge['total_commission'], 0, ',', '.') ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -190,10 +265,10 @@ new Chart(document.getElementById('barChart'), {
 new Chart(document.getElementById('pieChart'), {
     type: 'pie',
     data: {
-        labels: labels,
+        labels: ['Gains Internes', 'Commissions Externes'],
         datasets: [{
-            data: data,
-            backgroundColor: colors,
+            data: [<?= json_encode($totalInterne) ?>, <?= json_encode($totalExterne) ?>],
+            backgroundColor: ['#2a9d8f', '#e76f51'],
             borderWidth: 2,
             borderColor: '#fff'
         }]

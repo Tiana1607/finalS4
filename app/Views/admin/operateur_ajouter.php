@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Préfixe</title>
+    <title>Créer un Opérateur</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
@@ -23,7 +23,7 @@
 
             <a href="/admin/prefixes" class="text-decoration-none mb-3 d-inline-block">&larr; Retour à la liste des préfixes</a>
 
-            <h4 class="mb-4">Ajouter un préfixe</h4>
+            <h4 class="mb-4">Créer un opérateur</h4>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
@@ -52,46 +52,17 @@
 
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form action="/admin/prefixes" method="post">
+                    <form action="/admin/operateurs/ajouter" method="post">
                         <?= csrf_field() ?>
 
                         <div class="mb-3">
-                            <label class="form-label">Préfixe</label>
-                            <input type="text" name="prefixe" class="form-control"
-                                   placeholder="Ex: 034" value="<?= old('prefixe') ?>" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label d-block">Appartenance</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="appartenance"
-                                       id="app_nous" value="nous" checked>
-                                <label class="form-check-label" for="app_nous">Nous</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="appartenance"
-                                       id="app_autre" value="autre">
-                                <label class="form-check-label" for="app_autre">Autre opérateur</label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3" id="operateurSelectWrapper" style="display:none;">
-                            <label class="form-label">Opérateur</label>
-                            <select name="operateur_id" class="form-select">
-                                <option value="">-- Choisir --</option>
-                                <?php foreach ($operateurs as $op): ?>
-                                    <option value="<?= esc($op['id']) ?>"><?= esc($op['nom']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php if (empty($operateurs)): ?>
-                                <div class="form-text text-danger">
-                                    Aucun opérateur externe créé.
-                                </div>
-                            <?php endif; ?>
+                            <label class="form-label">Nom de l'opérateur</label>
+                            <input type="text" name="nom" class="form-control"
+                                   placeholder="Ex: Airtel, Orange, Telma..." value="<?= old('nom') ?>" required>
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary flex-fill">Ajouter</button>
+                            <button type="submit" class="btn btn-primary flex-fill">Créer</button>
                             <a href="/admin/prefixes" class="btn btn-outline-secondary flex-fill">Annuler</a>
                         </div>
                     </form>
@@ -103,13 +74,5 @@
 </div>
 
 <script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<script>
-document.querySelectorAll('input[name="appartenance"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-        document.getElementById('operateurSelectWrapper').style.display =
-            this.value === 'autre' ? 'block' : 'none';
-    });
-});
-</script>
 </body>
 </html>

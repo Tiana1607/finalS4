@@ -108,6 +108,26 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-md-4">
+                    <a href="/admin/commissions" class="text-decoration-none">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-body text-center py-4">
+                                <h4 class="mb-2">Commissions</h4>
+                                <p class="text-muted mb-0">Configurer les commissions externes (%)</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/admin/montants" class="text-decoration-none">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-body text-center py-4">
+                                <h4 class="mb-2">Montants à envoyer</h4>
+                                <p class="text-muted mb-0">Montants à reverser aux opérateurs externes</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
 
         </div>

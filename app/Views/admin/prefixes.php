@@ -48,10 +48,13 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Bouton ajouter -->
-            <div class="mb-4">
+            <!-- Boutons -->
+            <div class="mb-4 d-flex gap-2">
                 <a href="/admin/prefixes/ajouter" class="btn btn-primary">
                     + Ajouter un préfixe
+                </a>
+                <a href="/admin/operateurs/ajouter" class="btn btn-outline-primary">
+                    + Créer un opérateur
                 </a>
             </div>
 

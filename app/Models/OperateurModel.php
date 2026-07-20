@@ -46,6 +46,11 @@ class OperateurModel extends Model
         return $this->where('est_nous', 1)->first();
     }
 
+    public function getNous(): ?array
+    {
+        return $this->where('est_nous', 1)->first();
+    }
+
     public function getOperateursExterne(): array
     {
         return $this->where('est_nous', 0)->findAll();

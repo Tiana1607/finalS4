@@ -76,4 +76,29 @@ class PrefixeController extends BaseController
         $this->prefixeModel->delete($id);
         return redirect()->to('/admin/prefixes')->with('success', 'Préfixe supprimé.');
     }
+
+    public function createOperateur()
+    {
+        return view('admin/operateur_ajouter');
+    }
+
+    public function storeOperateur()
+    {
+        $rules = [
+            'nom' => 'required|max_length[100]|is_unique[operateurs.nom]',
+        ];
+
+        if (! $this->validate($rules)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        $this->operateurModel->insert([
+            'nom'      => $this->request->getPost('nom'),
+            'est_nous' => 0,
+        ]);
+
+        return redirect()->to('/admin/prefixes')->with('success', 'Opérateur créé avec succès.');
+    }
 }

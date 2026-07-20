@@ -56,6 +56,52 @@ class TransactionModel extends Model
     }
 
     /**
+     * Gains internes : retraits + transferts sans opérateur externe (nos frais).
+     */
+    public function getGainsInternes(): array
+    {
+        return $this->db->table('transactions t')
+            ->select('t.type_operation_id, to2.libelle, SUM(t.frais) AS total_frais, COUNT(*) AS nombre')
+            ->join('types_operation to2', 'to2.id = t.type_operation_id', 'left')
+            ->whereIn('t.type_operation_id', [2, 3])
+            ->where('t.operateur_destinataire_id', null)
+            ->groupBy('t.type_operation_id')
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Gains externes : commissions dues aux opérateurs externes (sur transferts).
+     */
+    public function getGainsExternes(): array
+    {
+        return $this->db->table('transactions t')
+            ->select('op.nom AS operateur_nom, SUM(t.commission_externe) AS total_commission, COUNT(*) AS nombre')
+            ->join('operateurs op', 'op.id = t.operateur_destinataire_id', 'left')
+            ->where('t.type_operation_id', 3)
+            ->where('t.operateur_destinataire_id IS NOT NULL', null, false)
+            ->groupBy('t.operateur_destinataire_id')
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Montant total à envoyer par opérateur externe (SUM du montant des transferts vers chaque opérateur).
+     */
+    public function getMontantsParOperateur(): array
+    {
+        return $this->db->table('transactions t')
+            ->select('op.id AS operateur_id, op.nom AS operateur_nom, SUM(t.montant) AS montant_total, COUNT(*) AS nb_transferts')
+            ->join('operateurs op', 'op.id = t.operateur_destinataire_id', 'left')
+            ->where('t.type_operation_id', 3)
+            ->where('t.operateur_destinataire_id IS NOT NULL', null, false)
+            ->groupBy('t.operateur_destinataire_id')
+            ->orderBy('montant_total', 'DESC')
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
      * Transactions détaillées d'un type donné (retrait ou transfert), avec infos client.
      */
     public function getTransactionsByType(int $typeId): array

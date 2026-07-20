@@ -20,6 +20,9 @@ $routes->group('admin', function ($routes) {
         $routes->post('prefixes', 'Operateur\PrefixeController::store');
         $routes->post('prefixes/delete/(:num)', 'Operateur\PrefixeController::delete/$1');
 
+        $routes->get('operateurs/ajouter', 'Operateur\PrefixeController::createOperateur');
+        $routes->post('operateurs/ajouter', 'Operateur\PrefixeController::storeOperateur');
+
         $routes->get('frais', 'Operateur\FraisController::index');
         $routes->post('frais/ajouter', 'Operateur\FraisController::store');
         $routes->get('frais/modifier/(:num)', 'Operateur\FraisController::edit/$1');
@@ -27,6 +30,13 @@ $routes->group('admin', function ($routes) {
         $routes->post('frais/supprimer/(:num)', 'Operateur\FraisController::delete/$1');
 
         $routes->get('gains', 'Operateur\GainController::index');
+
+        $routes->get('commissions', 'Operateur\CommissionController::index');
+        $routes->post('commissions/ajouter', 'Operateur\CommissionController::store');
+        $routes->post('commissions/modifier/(:num)', 'Operateur\CommissionController::update/$1');
+        $routes->get('commissions/popup/(:num)', 'Operateur\CommissionController::popup/$1');
+
+        $routes->get('montants', 'Operateur\MontantController::index');
 
         $routes->get('clients', 'Operateur\ClientController::index');
         $routes->get('clients/detail/(:num)', 'Operateur\ClientController::detail/$1');

@@ -20,6 +20,9 @@ class GainController extends BaseController
         $retraits     = $this->transactionModel->getTransactionsByType(2);
         $transferts   = $this->transactionModel->getTransactionsByType(3);
 
+        $gainsInternes = $this->transactionModel->getGainsInternes();
+        $gainsExternes = $this->transactionModel->getGainsExternes();
+
         $totalRetrait   = 0;
         $totalTransfert = 0;
         $nbRetrait      = 0;
@@ -35,6 +38,17 @@ class GainController extends BaseController
             }
         }
 
+        $totalInterne = 0;
+        $totalExterne = 0;
+
+        foreach ($gainsInternes as $gi) {
+            $totalInterne += (float) $gi['total_frais'];
+        }
+
+        foreach ($gainsExternes as $ge) {
+            $totalExterne += (float) $ge['total_commission'];
+        }
+
         $data = [
             'totalRetrait'   => $totalRetrait,
             'totalTransfert' => $totalTransfert,
@@ -43,6 +57,10 @@ class GainController extends BaseController
             'nbTransfert'    => $nbTransfert,
             'retraits'       => $retraits,
             'transferts'     => $transferts,
+            'gainsInternes'  => $gainsInternes,
+            'gainsExternes'  => $gainsExternes,
+            'totalInterne'   => $totalInterne,
+            'totalExterne'   => $totalExterne,
         ];
 
         return view('admin/gains', $data);
