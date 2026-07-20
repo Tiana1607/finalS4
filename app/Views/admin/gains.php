@@ -13,7 +13,7 @@
     <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Opérateur</span>
-            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm d-flex align-items-center">Deconnexion</a>
         </div>
     </nav>
 
@@ -33,7 +33,7 @@
 
             <!-- ─── Cartes résumé ─── -->
             <div class="row g-3 mb-4">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card kpi-card kpi-warning h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains — Retraits</h6>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card kpi-card kpi-info h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains — Transferts</h6>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card shadow-sm border-0 h-100">
+                    <div class="card kpi-card h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains Internes</h6>
                             <h3 class="mb-1 text-success"><?= number_format($totalInterne, 0, ',', '.') ?> Ar</h3>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card shadow-sm border-0 h-100">
+                    <div class="card kpi-card kpi-danger h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Commissions Externes</h6>
                             <h3 class="mb-1 text-danger"><?= number_format($totalExterne, 0, ',', '.') ?> Ar</h3>
@@ -74,25 +74,29 @@
             <!-- ─── Graphiques ─── -->
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
-                    <div class="card shadow-sm">
+                    <div class="card chart-card">
                         <div class="card-body">
-                            <h6 class="card-title text-center">Gains par type (barres)</h6>
-                            <canvas id="barChart" height="220"></canvas>
+                            <h6 class="card-title chart-title">Gains par type</h6>
+                            <div class="chart-box">
+                                <canvas id="barChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card shadow-sm">
+                    <div class="card chart-card">
                         <div class="card-body">
-                            <h6 class="card-title text-center">Répartition interne / externe (camembert)</h6>
-                            <canvas id="pieChart" height="220"></canvas>
+                            <h6 class="card-title chart-title">Répartition interne / externe</h6>
+                            <div class="chart-box">
+                                <canvas id="pieChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- ─── Gains Internes ─── -->
-            <div class="card shadow-sm mb-4">
+            <div class="card section-card shadow-sm mb-4">
                 <div class="card-header bg-success text-white">
                     <h5 class="mb-0">Gains Internes (nos frais perçus)</h5>
                 </div>
@@ -125,7 +129,7 @@
             </div>
 
             <!-- ─── Gains Externes ─── -->
-            <div class="card shadow-sm mb-4">
+            <div class="card section-card shadow-sm mb-4">
                 <div class="card-header bg-danger text-white">
                     <h5 class="mb-0">Commissions Externes (dues aux opérateurs)</h5>
                 </div>
@@ -158,7 +162,7 @@
             </div>
 
             <!-- ─── Liste des retraits ─── -->
-            <div class="card shadow-sm mb-4">
+            <div class="card section-card shadow-sm mb-4">
                 <div class="card-header" style="background: var(--color-retrait); color: var(--color-text)">
                     <h5 class="mb-0">Retraits effectués</h5>
                 </div>
@@ -195,7 +199,7 @@
             </div>
 
             <!-- ─── Liste des transferts ─── -->
-            <div class="card shadow-sm mb-4">
+            <div class="card section-card shadow-sm mb-4">
                 <div class="card-header" style="background: var(--color-transfert); color: #fff">
                     <h5 class="mb-0">Transferts effectués</h5>
                 </div>
@@ -258,6 +262,7 @@ new Chart(document.getElementById('barChart'), {
     },
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
             y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
@@ -279,6 +284,7 @@ new Chart(document.getElementById('pieChart'), {
     },
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: { position: 'bottom' }
         }

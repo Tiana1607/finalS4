@@ -13,19 +13,23 @@
     <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Opérateur</span>
-            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm d-flex align-items-centerd-flex align-items-center">Deconnexion</a>
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <div class="mb-3">
-                <a href="/admin/dashboard" class="text-decoration-none">&larr; Retour au tableau de bord</a>
-            </div>
+            <a href="/admin/dashboard" class="back-link">&larr; Retour au tableau de bord</a>
 
-            <h4 class="mb-4">Commissions Externes</h4>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Interopérabilité</div>
+                    <h1 class="page-title">Commissions Externes</h1>
+                    <p class="page-subtitle">Configurez le pourcentage reversé aux opérateurs externes.</p>
+                </div>
+            </div>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
@@ -42,11 +46,9 @@
             <?php endif; ?>
 
             <!-- ─── Formulaire d'ajout rapide ─── -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Ajouter / Modifier une commission</h5>
-                </div>
+            <div class="card shadow-sm money-card mb-4">
                 <div class="card-body">
+                    <h5 class="panel-title">Ajouter / Modifier une commission</h5>
                     <form action="/admin/commissions/ajouter" method="post" class="row g-3 align-items-end">
                         <?= csrf_field() ?>
                         <div class="col-md-6">
@@ -70,13 +72,11 @@
             </div>
 
             <!-- ─── Liste des commissions ─── -->
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5 class="mb-0">Commissions configurées</h5>
-                </div>
+            <div class="card shadow-sm section-card">
                 <div class="card-body">
+                    <h5 class="panel-title">Commissions configurées</h5>
                     <?php if (empty($commissions)): ?>
-                        <p class="text-muted mb-0">Aucune commission externe configurée.</p>
+                        <p class="text-muted empty-state mb-0">Aucune commission externe configurée.</p>
                     <?php else: ?>
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">

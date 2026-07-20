@@ -13,7 +13,7 @@
     <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Opérateur</span>
-            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm d-flex align-items-centerd-flex align-items-center">Deconnexion</a>
         </div>
     </nav>
 
@@ -146,21 +146,29 @@
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/admin/commissions" class="text-decoration-none">
-                        <div class="card shadow-sm border-0 h-100">
-                            <div class="card-body text-center py-4">
+                    <a href="/admin/commissions" class="action-card text-decoration-none">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <span class="action-icon" style="background: var(--color-danger)">%</span>
+                                <div>
                                 <h4 class="mb-2">Commissions</h4>
                                 <p class="text-muted mb-0">Configurer les commissions externes (%)</p>
+                                </div>
+                                <span class="action-arrow">→</span>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/admin/montants" class="text-decoration-none">
-                        <div class="card shadow-sm border-0 h-100">
-                            <div class="card-body text-center py-4">
+                    <a href="/admin/montants" class="action-card text-decoration-none">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <span class="action-icon" style="background: var(--color-warning); color: var(--color-text)">Ar</span>
+                                <div>
                                 <h4 class="mb-2">Montants à envoyer</h4>
                                 <p class="text-muted mb-0">Montants à reverser aux opérateurs externes</p>
+                                </div>
+                                <span class="action-arrow">→</span>
                             </div>
                         </div>
                     </a>

@@ -423,6 +423,7 @@ a:hover {
 .kpi-card.kpi-warning::before { background: var(--color-warning); }
 .kpi-card.kpi-info::before { background: var(--color-info); }
 .kpi-card.kpi-muted::before { background: var(--color-historique); }
+.kpi-card.kpi-danger::before { background: var(--color-danger); }
 .kpi-icon {
     display: inline-grid;
     place-items: center;
@@ -480,6 +481,42 @@ a:hover {
     background: #f7fbf8;
     border: 1px solid rgba(64, 145, 108, 0.18);
     border-radius: var(--radius);
+}
+.chart-card {
+    height: 100%;
+}
+.chart-card .card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 22rem;
+}
+.chart-title {
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+.chart-box {
+    flex: 1;
+    position: relative;
+    min-height: 16.5rem;
+}
+.chart-box canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+.section-card .card-header {
+    border-bottom: 0;
+    font-weight: 800;
+}
+.section-card .card-body {
+    padding: 1rem;
+}
+.empty-state {
+    padding: 1.25rem;
+    text-align: center;
 }
 
 /* ── Transfert radio cards ────────────────── */

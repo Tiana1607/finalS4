@@ -13,7 +13,7 @@
     <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Opérateur</span>
-            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm d-flex align-items-centerd-flex align-items-center">Deconnexion</a>
         </div>
     </nav>
 

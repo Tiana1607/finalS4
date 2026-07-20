@@ -15,7 +15,7 @@
     <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Mon Compte</span>
-            <a href="<?= base_url('/client/logout') ?>" class="btn btn-outline-light btn-sm">Déconnexion</a>
+            <a href="<?= base_url('/client/logout') ?>" class="btn btn-outline-light btn-sm d-flex align-items-centerd-flex align-items-center">Deconnexion</a>
         </div>
     </nav>
 

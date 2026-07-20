@@ -13,24 +13,28 @@
     <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Opérateur</span>
-            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm d-flex align-items-center">Deconnexion</a>
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <div class="mb-3">
-                <a href="/admin/dashboard" class="text-decoration-none">&larr; Retour au tableau de bord</a>
-            </div>
+            <a href="/admin/dashboard" class="back-link">&larr; Retour au tableau de bord</a>
 
-            <h4 class="mb-4">Montants à envoyer aux opérateurs</h4>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Règlement externe</div>
+                    <h1 class="page-title">Montants à envoyer aux opérateurs</h1>
+                    <p class="page-subtitle">Suivez les montants à reverser après les transferts externes.</p>
+                </div>
+            </div>
 
             <!-- ─── Carte résumé ─── -->
             <div class="row g-3 mb-4">
                 <div class="col-md-4">
-                    <div class="card shadow-sm border-0 h-100">
+                    <div class="card kpi-card kpi-danger h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Total à reverser</h6>
                             <h3 class="text-danger mb-0"><?= number_format($totalGeneral, 0, ',', '.') ?> Ar</h3>
@@ -38,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow-sm border-0 h-100">
+                    <div class="card kpi-card kpi-info h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Opérateurs concernés</h6>
                             <h3 class="mb-0"><?= count($montants) ?></h3>
@@ -48,13 +52,13 @@
             </div>
 
             <!-- ─── Tableau des montants ─── -->
-            <div class="card shadow-sm mb-4">
+            <div class="card section-card shadow-sm mb-4">
                 <div class="card-header bg-warning">
                     <h5 class="mb-0">Détail par opérateur</h5>
                 </div>
                 <div class="card-body">
                     <?php if (empty($montants)): ?>
-                        <p class="text-muted mb-0">Aucun montant à envoyer pour le moment.</p>
+                        <p class="text-muted empty-state mb-0">Aucun montant à envoyer pour le moment.</p>
                     <?php else: ?>
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
