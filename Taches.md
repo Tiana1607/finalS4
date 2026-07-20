@@ -7,9 +7,9 @@
 - Migration table baremes [x] Rovatiana
 - Migration table transactions [x] Rovatiana
 - Migration table clients [x] Rovatiana
-- Seeder client de test []
+- Seeder client de test [x] Jérémie
 
-## Coté Opérateur :
+## Coté Opérateur : Jérémie
 
 - Login ()
     - AdminModel (recherche par email) []
@@ -34,7 +34,7 @@
     - Fonction qui formate les données en JSON pour Chart.js []
     - Vue Totale []
 
-## Coté Client :
+## Coté Client : Rovatiana
 
 - Login()
     - ClientModel (recherche par téléphone) [x]

@@ -64,7 +64,7 @@ CREATE TABLE transactions (
     FOREIGN KEY (type_operation_id) REFERENCES types_operation(id)
 );
 
- Types d'opération
+--  Types d'opération
 INSERT INTO types_operation (libelle) VALUES ('depot');
 INSERT INTO types_operation (libelle) VALUES ('retrait');
 INSERT INTO types_operation (libelle) VALUES ('transfert');
@@ -100,9 +100,5 @@ INSERT INTO baremes (type_operation_id, montant_min, montant_max, frais) VALUES
 (3, 500001,   1000000,  2500),
 (3, 1000001,  2000000,  3000);
  
--- Compte admin par défaut
--- mot de passe en clair : admin123 (remplace ce hash par le tien via password_hash() en PHP)
-INSERT INTO admins (nom, email, mot_de_passe) VALUES
-('Admin', 'admin@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
  
  
