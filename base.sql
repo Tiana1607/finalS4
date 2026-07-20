@@ -1,7 +1,3 @@
--- =====================================================
--- Schéma BDD - Projet Mobile Money (CodeIgniter 4 + SQLite)
--- =====================================================
-
 -- ---------------------------------------------------
 -- 1. ADMINS (opérateur / back-office)
 -- ---------------------------------------------------
@@ -9,7 +5,7 @@ CREATE TABLE admins (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     nom             TEXT NOT NULL,
     email           TEXT NOT NULL UNIQUE,
-    mot_de_passe    TEXT NOT NULL,          -- haché avec password_hash()
+    mot_de_passe    TEXT NOT NULL,         
     date_creation   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -42,7 +38,6 @@ CREATE TABLE types_operation (
 
 -- ---------------------------------------------------
 -- 5. tranche_montant : tranches de frais par type d'opération
---    (modifiable par l'opérateur)
 -- ---------------------------------------------------
 CREATE TABLE tranche_montant (
     id                  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -71,7 +66,6 @@ CREATE TABLE transactions (
     FOREIGN KEY (type_operation_id) REFERENCES types_operation(id)
 );
 
--- Index utiles pour les recherches fréquentes (historique, calcul du bon barème)
 CREATE INDEX idx_transactions_client ON transactions(client_id);
 CREATE INDEX idx_transactions_type ON transactions(type_operation_id);
 CREATE INDEX idx_tranche_montant_type ON tranche_montant(type_operation_id);
