@@ -98,6 +98,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    /* ── Formatage automatique des numéros de téléphone (0XX XX XXX XX) ── */
+    document.querySelectorAll('input[type="tel"]').forEach(function (input) {
+        input.addEventListener('input', function () {
+            const chiffres = this.value.replace(/\D/g, '').slice(0, 10);
+            let formate = '';
+            if (chiffres.length > 0) formate += chiffres.slice(0, 3);
+            if (chiffres.length > 3) formate += ' ' + chiffres.slice(3, 5);
+            if (chiffres.length > 5) formate += ' ' + chiffres.slice(5, 8);
+            if (chiffres.length > 8) formate += ' ' + chiffres.slice(8, 10);
+
+            this.value = formate;
+            this.setSelectionRange(formate.length, formate.length);
+        });
+
+        input.addEventListener('paste', function () {
+            const self = this;
+            setTimeout(function () {
+                self.dispatchEvent(new Event('input'));
+            }, 0);
+        });
+    });
+
     /* ── Tooltips Bootstrap (si utilisés) ── */
     const tooltipTriggers = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggers.forEach(function (el) {
