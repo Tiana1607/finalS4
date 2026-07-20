@@ -49,6 +49,8 @@ class CreateTransactionsTable extends Migration
         $this->forge->addForeignKey('client_id', 'clients', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('type_operation_id', 'types_operation', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('destinataire_id', 'clients', 'id', 'SET NULL', 'CASCADE');
+
+        $this->forge->createTable('transactions');
     }
 
     public function down()

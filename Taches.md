@@ -37,15 +37,15 @@
 ## Coté Client :
 
 - Login()
-    - ClientModel (recherche par téléphone) []
-    - Fonction vérifier existence + créer automatiquement si absent []
-    - Session client (session()->set(...)) []
-    - Filter ClientAuth (protection des pages dépôt/retrait/transfert/historique) []
-    - Vue []
+    - ClientModel (recherche par téléphone) [x]
+    - Fonction vérifier existence + créer automatiquement si absent [x]
+    - Session client (session()->set(...)) [x]
+    - Filter ClientAuth (protection des pages dépôt/retrait/transfert/historique) [x]
+    - Vue [x]
 - Page Depot 
-    - Fonction validation montant (positif, non vide) []
-    - Fonction créditer le solde + enregistrer la transaction []
-    - Vue []
+    - Fonction validation montant (positif, non vide) [x]
+    - Fonction créditer le solde + enregistrer la transaction [x]
+    - Vue [x]
 - Page Retrait
     - Fonction validation montant + vérification solde suffisant (solde >= montant + frais) []
     - Fonction calcul du frais via le barème opérateur (type = retrait) []
