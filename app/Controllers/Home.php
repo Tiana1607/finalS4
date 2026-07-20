@@ -8,4 +8,9 @@ class Home extends BaseController
     {
         return view('client/login');
     }
+    public function index2(): string
+    {
+        return view('admin/login');
+    }
 }
+
