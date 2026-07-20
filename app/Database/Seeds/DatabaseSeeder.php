@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call('TypesOperationSeeder');
         $this->call('OperateursSeeder');
         $this->call('PrefixesSeeder');
+        $this->call('CommissionsSeeder');
         $this->call('TrancheMontantSeeder');
         $this->call('AdminSeeder');
     }

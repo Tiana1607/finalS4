@@ -120,3 +120,4 @@
     - Vue formulaire multi-destinataires + récapitulatif [x] Rovatiana
 - Page Historique (mise à jour)
     - TransactionsModel : jointure transferts_groupes + groupe_nb [x] Rovatiana
+- Ajout truc de commission dans les calculs []

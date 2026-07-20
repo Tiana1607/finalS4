@@ -14,6 +14,33 @@ class AddV2Columns extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'operateur_id' => [
+                'type' => 'INTEGER',
+                'unsigned' => true,
+                'null' => false,
+            ],
+            'pourcentage' => [
+                'type' => 'REAL',
+                'null' => false,
+                'default' => 0,
+            ],
+            'date_creation' => [
+                'type' => 'DATETIME',
+                'null' => false,
+                'default' => 'CURRENT_TIMESTAMP',
+            ],
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('operateur_id', 'operateurs', 'id', 'CASCADE', 'CASCADE');
+
+        $this->forge->createTable('commissions_externes');
+
+        $this->forge->addField([
+            'id' => [
+                'type' => 'INTEGER',
+                'unsigned' => true,
+                'auto_increment' => true,
+            ],
             'client_id' => [
                 'type' => 'INTEGER',
                 'unsigned' => true,
@@ -60,5 +87,6 @@ class AddV2Columns extends Migration
         $this->db->query('ALTER TABLE prefixes DROP COLUMN operateur_id');
 
         $this->forge->dropTable('transferts_groupes');
+        $this->forge->dropTable('commissions_externes');
     }
 }

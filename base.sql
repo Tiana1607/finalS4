@@ -59,7 +59,18 @@ CREATE TABLE tranche_montant (
 );
 
 -- ---------------------------------------------------
--- 7. TRANSFERTS_GROUPES (envoi multiple)
+-- 7. COMMISSIONS EXTERNES : % par opérateur externe
+-- ---------------------------------------------------
+CREATE TABLE commissions_externes (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    operateur_id   INTEGER NOT NULL,
+    pourcentage    REAL NOT NULL CHECK (pourcentage >= 0),
+    date_creation  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (operateur_id) REFERENCES operateurs(id)
+);
+
+-- ---------------------------------------------------
+-- 8. TRANSFERTS_GROUPES (envoi multiple)
 -- ---------------------------------------------------
 CREATE TABLE transferts_groupes (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -71,7 +82,7 @@ CREATE TABLE transferts_groupes (
 );
 
 -- ---------------------------------------------------
--- 8. TRANSACTIONS (historique + calcul des gains)
+-- 9. TRANSACTIONS (historique + calcul des gains)
 -- ---------------------------------------------------
 CREATE TABLE transactions (
     id                          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -99,16 +110,20 @@ INSERT INTO types_operation (libelle) VALUES ('depot');
 INSERT INTO types_operation (libelle) VALUES ('retrait');
 INSERT INTO types_operation (libelle) VALUES ('transfert');
 
--- Opérateurs
+-- Opérateurs (1 = MoovMoney/nous, 2 = Airtel Money, 3 = Telma)
 INSERT INTO operateurs (nom, est_nous) VALUES ('MoovMoney', 1);
 INSERT INTO operateurs (nom, est_nous) VALUES ('Airtel Money', 0);
 INSERT INTO operateurs (nom, est_nous) VALUES ('Telma', 0);
 
--- Préfixes valides (1 = MoovMoney, 2 = Airtel Money, 3 = Telma)
+-- Préfixes valides
 INSERT INTO prefixes (prefixe, operateur_id) VALUES ('033', 1);
 INSERT INTO prefixes (prefixe, operateur_id) VALUES ('037', 1);
 INSERT INTO prefixes (prefixe, operateur_id) VALUES ('032', 2);
 INSERT INTO prefixes (prefixe, operateur_id) VALUES ('031', 3);
+
+-- Commissions externes (uniquement opérateurs externes)
+INSERT INTO commissions_externes (operateur_id, pourcentage) VALUES (2, 2.0);
+INSERT INTO commissions_externes (operateur_id, pourcentage) VALUES (3, 1.5);
 
 -- Barème de frais pour le RETRAIT (type_operation_id = 2)
 INSERT INTO tranche_montant (type_operation_id, montant_min, montant_max, frais) VALUES
