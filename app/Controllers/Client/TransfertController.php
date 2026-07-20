@@ -9,6 +9,7 @@ use App\Models\TrancheMontantModel;
 use App\Models\PrefixesModel;
 use App\Models\OperateurModel;
 use App\Models\TransfertsGroupeModel;
+use App\Models\CommissionsModel;
 
 class TransfertController extends BaseController
 {
@@ -18,6 +19,7 @@ class TransfertController extends BaseController
     protected PrefixesModel $prefixesModel;
     protected OperateurModel $operateurModel;
     protected TransfertsGroupeModel $groupeModel;
+    protected CommissionsModel $commissionsModel;
 
     protected int $typeOperationRetrait  = 2;
     protected int $typeOperationTransfert = 3;
@@ -30,6 +32,7 @@ class TransfertController extends BaseController
         $this->prefixesModel     = new PrefixesModel();
         $this->operateurModel    = new OperateurModel();
         $this->groupeModel       = new TransfertsGroupeModel();
+        $this->commissionsModel  = new CommissionsModel();
     }
 
     public function showForm()
@@ -129,6 +132,7 @@ class TransfertController extends BaseController
 
         $montantParDest = $montant;
         $totalFrais     = 0;
+        $totalCommissions = 0;
 
         if ($estMulti) {
             $montantParDest = $montant / $nbDestinataires;
@@ -137,16 +141,22 @@ class TransfertController extends BaseController
         foreach ($destinatairesValides as $d) {
             $fraisTransfert = $this->trancheModel->getFrais($this->typeOperationTransfert, $montantParDest);
             $fraisRetrait   = 0;
+            $commission     = 0;
 
             if ($d['est_nous'] && $avecFraisRetrait === 1) {
                 $fraisRetrait = $this->trancheModel->getFrais($this->typeOperationRetrait, $montantParDest);
             }
 
-            $totalFrais += $fraisTransfert + $fraisRetrait;
+            if (!$d['est_nous'] && $d['operateur_id'] !== null) {
+                $commission = $this->commissionsModel->calculerCommission($montantParDest, $d['operateur_id']);
+            }
+
+            $totalFrais       += $fraisTransfert + $fraisRetrait;
+            $totalCommissions += $commission;
         }
 
-        $solde = $emetteur['solde'];
-        $coutTotal = $montant + $totalFrais;
+        $solde    = $emetteur['solde'];
+        $coutTotal = $montant + $totalFrais + $totalCommissions;
         if ($solde < $coutTotal) {
             return redirect()->back()->withInput()->with('error', 'Solde insuffisant. Solde actuel : '
                 . number_format($solde, 0, ',', ' ') . ' Ar — Coût total : '
@@ -168,12 +178,17 @@ class TransfertController extends BaseController
         foreach ($destinatairesValides as $d) {
             $fraisTransfert = $this->trancheModel->getFrais($this->typeOperationTransfert, $montantParDest);
             $fraisRetrait   = 0;
+            $commission     = 0;
 
             if ($d['est_nous'] && $avecFraisRetrait === 1) {
                 $fraisRetrait = $this->trancheModel->getFrais($this->typeOperationRetrait, $montantParDest);
             }
 
-            $totalFraisDest = $fraisTransfert + $fraisRetrait;
+            if (!$d['est_nous'] && $d['operateur_id'] !== null) {
+                $commission = $this->commissionsModel->calculerCommission($montantParDest, $d['operateur_id']);
+            }
+
+            $totalFraisDest = $fraisTransfert + $fraisRetrait + $commission;
             $creditDest     = $montantParDest + $fraisRetrait;
 
             $this->clientsModel->update($d['client']['id'], [
@@ -187,6 +202,7 @@ class TransfertController extends BaseController
                 'montant'                     => $montantParDest,
                 'frais'                       => $totalFraisDest,
                 'operateur_destinataire_id'   => $d['operateur_id'],
+                'commission_externe'          => $commission,
                 'groupe_id'                   => $groupeId,
             ]);
 
@@ -197,6 +213,9 @@ class TransfertController extends BaseController
         $message = 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . $liste . ' effectué avec succès.';
         if ($totalFrais > 0) {
             $message .= ' Frais : ' . number_format($totalFrais, 0, ',', ' ') . ' Ar.';
+        }
+        if ($totalCommissions > 0) {
+            $message .= ' Commission opérateur externe : ' . number_format($totalCommissions, 0, ',', ' ') . ' Ar.';
         }
 
         return redirect()->to('/client/transfert')->with('success', $message);
