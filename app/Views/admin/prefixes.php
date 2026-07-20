@@ -52,7 +52,7 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Ajouter un préfixe</h5>
-                    <form action="/admin/prefixes/ajouter" method="post" class="row g-2 align-items-end">
+                    <form action="/admin/prefixes" method="post" class="row g-2 align-items-end">
                         <?= csrf_field() ?>
 
                         <div class="col-md-4">
@@ -120,7 +120,7 @@
                                         <td><?= esc($p['prefixe']) ?></td>
                                         <td><?= esc($p['date_creation']) ?></td>
                                         <td class="text-end">
-                                            <form action="/admin/prefixes/supprimer/<?= esc($p['id']) ?>" method="post" class="d-inline">
+                                            <form action="/admin/prefixes/delete/<?= esc($p['id']) ?>" method="post" class="d-inline">
                                                 <?= csrf_field() ?>
                                                 <button type="submit" class="btn btn-danger btn-sm"
                                                         data-confirm="Supprimer ce préfixe ?"
@@ -162,7 +162,7 @@
                                         <td><?= esc($p['prefixe']) ?></td>
                                         <td><?= esc($p['date_creation']) ?></td>
                                         <td class="text-end">
-                                            <form action="/admin/prefixes/supprimer/<?= esc($p['id']) ?>" method="post" class="d-inline">
+                                            <form action="/admin/prefixes/delete/<?= esc($p['id']) ?>" method="post" class="d-inline">
                                                 <?= csrf_field() ?>
                                                 <button type="submit" class="btn btn-danger btn-sm"
                                                         data-confirm="Supprimer ce préfixe ?"
