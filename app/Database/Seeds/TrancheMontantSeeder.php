@@ -8,6 +8,8 @@ class TrancheMontantSeeder extends Seeder
 {
     public function run()
     {
+        $this->db->table('tranche_montant')->truncate();
+
         $tranches = [
             ['min' => 100,      'max' => 1000,     'frais' => 50],
             ['min' => 1001,     'max' => 5000,     'frais' => 50],
@@ -32,7 +34,7 @@ class TrancheMontantSeeder extends Seeder
                     'frais'             => $t['frais'],
                 ];
             }
-            $this->db->table('baremes')->insertBatch($data);
+            $this->db->table('tranche_montant')->insertBatch($data);
         }
     }
 }
