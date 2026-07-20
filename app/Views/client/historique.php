@@ -112,7 +112,7 @@
                             </td>
                             <td class="montant-badge"><?= number_format($tx['montant'], 0, ',', ' ') ?> Ar</td>
                             <td><?= number_format($tx['frais'], 0, ',', ' ') ?> Ar</td>
-                            <td><?= $tx['destinataire_tel'] ? esc($tx['destinataire_tel']) : '—' ?></td>
+                            <td><?= $tx['destinataire_tel'] ? esc(formaterTelephone($tx['destinataire_tel'])) : '—' ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

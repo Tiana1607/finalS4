@@ -2,14 +2,14 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Détails — <?= esc($client['telephone']) ?></title>
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails — <?= esc(formaterTelephone($client['telephone'])) ?></title>
+    <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
-<body class="bg-light">
-<div class="container py-4">
-    <h5 class="text-center mb-1">Fiche client</h5>
-    <p class="text-center text-muted mb-4"><?= esc($client['telephone']) ?></p>
-
+<body>
+<div class="container py-3">
     <!-- Résumé -->
     <div class="row g-3 mb-4">
         <div class="col-4">
@@ -68,17 +68,17 @@
                                 <?php
                                 $libelle = ucfirst($t['type_libelle'] ?? '');
                                 $badge   = match($t['type_operation_id']) {
-                                    1      => 'primary',
-                                    2      => 'warning',
-                                    3      => 'success',
-                                    default => 'secondary',
+                                    1      => 'bg-success',
+                                    2      => 'bg-warning text-dark',
+                                    3      => 'bg-info',
+                                    default => 'bg-secondary',
                                 };
                                 ?>
-                                <span class="badge bg-<?= $badge ?>"><?= $libelle ?></span>
+                                <span class="badge <?= $badge ?>"><?= $libelle ?></span>
                             </td>
-                            <td><?= number_format($t['montant'], 0, ',', '.') ?> Ar</td>
-                            <td class="text-danger fw-bold"><?= number_format($t['frais'], 0, ',', '.') ?> Ar</td>
-                            <td><?= esc($t['destinataire_tel'] ?? '—') ?></td>
+                            <td class="montant-badge"><?= number_format($t['montant'], 0, ',', '.') ?> Ar</td>
+                            <td class="fw-bold"><?= number_format($t['frais'], 0, ',', '.') ?> Ar</td>
+                            <td><?= esc($t['destinataire_tel'] ? formaterTelephone($t['destinataire_tel']) : '—') ?></td>
                             <td><?= esc($t['date_operation']) ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -86,10 +86,6 @@
             </table>
         </div>
     <?php endif; ?>
-
-    <div class="text-center mt-3">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="window.close()">Fermer</button>
-    </div>
 </div>
 </body>
 </html>

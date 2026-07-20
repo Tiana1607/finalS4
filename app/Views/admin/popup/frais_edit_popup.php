@@ -2,35 +2,22 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier la tranche #<?= esc($tranche['id']) ?></title>
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
-<body class="bg-light">
+<body>
 <div class="container py-4">
     <h5 class="text-center mb-4">Modifier la tranche #<?= esc($tranche['id']) ?></h5>
 
     <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success"><?= esc(session()->getFlashdata('success')) ?></div>
-        <script>
-            if (window.opener) {
-                window.opener.location.reload();
-                window.close();
-            }
-        </script>
     <?php endif; ?>
 
     <?php if (session()->getFlashdata('error')): ?>
         <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
-    <?php endif; ?>
-
-    <?php if (session()->getFlashdata('errors')): ?>
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                    <li><?= esc($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
     <?php endif; ?>
 
     <form action="/admin/frais/modifier/<?= esc($tranche['id']) ?>" method="post">
@@ -62,10 +49,12 @@
                    value="<?= esc($tranche['frais']) ?>" required>
         </div>
         <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-dark flex-fill">Enregistrer</button>
+            <button type="submit" class="btn btn-primary flex-fill">Enregistrer</button>
             <button type="button" class="btn btn-secondary flex-fill" onclick="window.close()">Annuler</button>
         </div>
     </form>
 </div>
+<script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/script.js') ?>"></script>
 </body>
 </html>

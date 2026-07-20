@@ -29,7 +29,8 @@
                     <div class="mb-3">
                         <label for="tel" class="form-label">Numéro de téléphone</label>
                         <input type="tel" class="form-control" id="tel" name="tel"
-                               placeholder="0331234567"
+                               placeholder="032 12 123 12"
+                               pattern="[\d\s]{10,15}" inputmode="numeric"
                                value="<?= old('tel') ?>" required autofocus>
                     </div>
                     <div class="d-grid">

@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td><span class="badge ${badgeClass}">${capitalize(tx.type_libelle)}</span></td>
                     <td class="montant-badge">${numberFormat(tx.montant)} Ar</td>
                     <td>${numberFormat(tx.frais)} Ar</td>
-                    <td>${tx.destinataire_tel ? escapeHtml(tx.destinataire_tel) : '—'}</td>
+                    <td>${tx.destinataire_tel ? formatTelephone(tx.destinataire_tel) : '—'}</td>
                 </tr>
             `;
         });
@@ -113,6 +113,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    function formatTelephone(tel) {
+        const digits = String(tel).replace(/\s/g, '');
+        if (digits.length !== 10) return escapeHtml(tel);
+        return escapeHtml(digits.slice(0, 3) + ' ' + digits.slice(3, 5) + ' ' + digits.slice(5, 8) + ' ' + digits.slice(8, 10));
     }
 
 });

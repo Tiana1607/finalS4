@@ -2,26 +2,36 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord — Opérateur</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
 <body class="bg-light">
-<div class="container py-5">
+
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Opérateur</span>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+        </div>
+    </nav>
+
+<div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="mb-0">Tableau de bord</h3>
-                <a href="/admin/logout" class="btn btn-outline-danger btn-sm">Déconnexion</a>
-            </div>
+            <h4 class="mb-4">Tableau de bord</h4>
 
             <?php if (session()->getFlashdata('success')): ?>
-                <div class="alert alert-success"><?= esc(session()->getFlashdata('success')) ?></div>
+                <div class="alert alert-success alert-dismissible fade show">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                </div>
             <?php endif; ?>
 
             <!-- ─── Stats ─── -->
-            <div class="row g-3 mb-5">
+            <div class="row g-3 mb-4">
                 <div class="col-md-3">
                     <div class="card shadow-sm border-0 text-center h-100">
                         <div class="card-body">
@@ -50,7 +60,7 @@
                     <div class="card shadow-sm border-0 text-center h-100">
                         <div class="card-body">
                             <h6 class="text-muted mb-1">Gains totaux</h6>
-                            <h3 class="text-success mb-0"><?= number_format($totalGains, 0, ',', '.') ?> Ar</h3>
+                            <h3 class="solde-display mb-0"><?= number_format($totalGains, 0, ',', '.') ?> Ar</h3>
                         </div>
                     </div>
                 </div>
@@ -105,5 +115,6 @@
 </div>
 
 <script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/script.js') ?>"></script>
 </body>
 </html>

@@ -47,7 +47,8 @@
                             <div class="mb-3">
                                 <label for="destinataire" class="form-label">Numéro du destinataire</label>
                                 <input type="tel" class="form-control" id="destinataire" name="destinataire"
-                                       placeholder="Ex: 0341234567"
+                                       placeholder="034 12 123 12"
+                                       pattern="[\d\s]{10,15}" inputmode="numeric"
                                        value="<?= old('destinataire') ?>" required autofocus>
                             </div>
                             <div class="mb-3">

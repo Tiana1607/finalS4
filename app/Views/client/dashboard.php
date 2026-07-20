@@ -23,7 +23,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body text-center p-4">
                         <h5 class="card-title">Bienvenue !</h5>
-                        <p class="text-muted">Téléphone : <strong><?= esc($client['telephone']) ?></strong></p>
+                        <p class="text-muted">Téléphone : <strong><?= esc(formaterTelephone($client['telephone'])) ?></strong></p>
                         <p class="solde-display"><?= number_format($client['solde'], 0, ',', ' ') ?> Ar</p>
                         <p class="text-muted small">Solde actuel</p>
                     </div>

@@ -46,6 +46,12 @@ class ClientsController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Veuillez saisir votre numéro de téléphone.');
         }
 
+        // Supprimer les espaces et vérifier que le numéro fait exactement 10 chiffres
+        $telephone = preg_replace('/\s+/', '', trim($telephone));
+        if (!preg_match('/^\d{10}$/', $telephone)) {
+            return redirect()->back()->withInput()->with('error', 'Le numéro doit contenir exactement 10 chiffres (ex : 032 12 123 12).');
+        }
+
         // Vérifier que le préfixe du numéro est valide
         if (!$this->prefixesModel->prefixeExiste($telephone)) {
             return redirect()->back()->withInput()->with('error', 'Le préfixe de votre numéro n\'est pas autorisé. Préfixes acceptés : 033, 037.');
@@ -211,8 +217,14 @@ class ClientsController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Veuillez saisir le numéro du destinataire.');
         }
 
+        // Supprimer les espaces et vérifier que le numéro fait exactement 10 chiffres
+        $destinataireTel = preg_replace('/\s+/', '', trim($destinataireTel));
+        if (!preg_match('/^\d{10}$/', $destinataireTel)) {
+            return redirect()->back()->withInput()->with('error', 'Le numéro du destinataire doit contenir exactement 10 chiffres (ex : 032 12 123 12).');
+        }
+
         // Vérifier que le destinataire existe
-        $destinataire = $this->clientsModel->findByTelephone(trim($destinataireTel));
+        $destinataire = $this->clientsModel->findByTelephone($destinataireTel);
 
         if ($destinataire === null) {
             return redirect()->back()->withInput()->with('error', 'Aucun client trouvé avec le numéro ' . esc(trim($destinataireTel)) . '.');
@@ -264,7 +276,7 @@ class ClientsController extends BaseController
             'frais'             => $totalFrais,
         ]);
 
-        $message = 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . esc($destinataire['telephone']) . ' effectué avec succès.';
+        $message = 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . esc(formaterTelephone($destinataire['telephone'])) . ' effectué avec succès.';
         if ($totalFrais > 0) {
             $message .= ' Frais : ' . number_format($totalFrais, 0, ',', ' ') . ' Ar.';
         }
