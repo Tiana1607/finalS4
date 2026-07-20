@@ -100,5 +100,31 @@ INSERT INTO baremes (type_operation_id, montant_min, montant_max, frais) VALUES
 (3, 500001,   1000000,  2500),
 (3, 1000001,  2000000,  3000);
  
+-- Apport à la v2
  
- 
+CREATE TABLE operateurs (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom      TEXT NOT NULL,
+    est_nous INTEGER NOT NULL DEFAULT 0 CHECK (est_nous IN (0,1))
+);
+
+ALTER TABLE prefixes ADD COLUMN operateur_id INTEGER REFERENCES operateurs(id);
+
+-- modification de la table transaction
+
+ALTER TABLE transactions ADD COLUMN operateur_destinataire_id INTEGER REFERENCES operateurs(id);
+ALTER TABLE transactions ADD COLUMN commission_externe REAL DEFAULT 0;
+
+-- ALTER TABLE transactions ADD COLUMN frais_retrait_inclus INTEGER DEFAULT 0 CHECK (frais_retrait_inclus IN (0,1));
+-- ALTER TABLE transactions ADD COLUMN montant_frais_retrait_couvert REAL DEFAULT 0;
+
+CREATE TABLE transferts_groupes (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id     INTEGER NOT NULL,
+    montant_total REAL NOT NULL,
+    nb_destinataires INTEGER NOT NULL,
+    date_operation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+ALTER TABLE transactions ADD COLUMN groupe_id INTEGER REFERENCES transferts_groupes(id);
