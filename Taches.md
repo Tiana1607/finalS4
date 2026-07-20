@@ -57,6 +57,7 @@
     - Fonction validation numéro destinataire existant [x]
     - Fonction validation solde suffisant (solde >= montant + frais) [x]
     - Fonction calcul des frais via le barème opérateur (type = transfert) [x]
+    - Option "inclure frais de retrait" : calcul + prélèvement anticipé [x]
     - Fonction double mouvement (débit émetteur + crédit destinataire) + enregistrement transaction [x]
     - Vue [x]
 - Page Historique
@@ -69,7 +70,7 @@
 
 # Version 2
 
-## BDD:
+## BDD: Ensemble
 - Migration table operateurs []
 - Migration ALTER prefixes : ajout colonne operateur_id []
 - Migration table commissions_externes []
@@ -103,12 +104,11 @@
     - Fonction requête SUM(montant) GROUP BY operateur_destinataire_id (transferts externes uniquement) []
     - Vue montants à reverser par opérateur []
 
-## Coté Client :
+## Coté Client : Rovatiana
 
 - Page Transfert (mise à jour)
     - Fonction détection opérateur destinataire (interne/externe via prefixes) []
     - Fonction calcul commission externe si destinataire hors réseau []
-    - Option "inclure frais de retrait" : calcul + prélèvement anticipé []
     - Vue : case à cocher "inclure frais de retrait" + récapitulatif frais détaillé []
 - Page Envoi multiple
     - Fonction validation liste de numéros destinataires (existence/opérateur pour chacun) []
