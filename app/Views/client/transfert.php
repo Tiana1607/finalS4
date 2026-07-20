@@ -125,6 +125,7 @@
 
         const emetteurOperateurId = <?= json_encode($emetteurOperateurId) ?>;
         let tousMemeOperateur = true;
+        let aPrefixeInconnu = false;
         let detectTimers = {};
 
         btnAjouter.addEventListener('click', function () {
@@ -170,6 +171,7 @@
                 badge.textContent = '';
                 input.dataset.operateurId = '';
                 input.dataset.estNous = '';
+                input.dataset.prefixeConnu = '';
                 checkTousMemeOperateur();
                 updateUI();
                 return;
@@ -182,6 +184,7 @@
             .then(function (data) {
                 input.dataset.operateurId = data.operateur_id || '';
                 input.dataset.estNous = data.est_nous ? '1' : '0';
+                input.dataset.prefixeConnu = data.operateur_id ? '1' : '0';
 
                 if (data.nom) {
                     badge.textContent = data.nom;
@@ -195,7 +198,7 @@
                         badge.style.color = '#000';
                     }
                 } else {
-                    badge.textContent = 'Inconnu';
+                    badge.textContent = 'Préfixe inconnu';
                     badge.classList.remove('d-none', 'bg-success', 'bg-warning');
                     badge.classList.add('bg-secondary');
                     badge.style.color = '#fff';
@@ -209,9 +212,13 @@
         function checkTousMemeOperateur() {
             const inputs = liste.querySelectorAll('.destinataire-input');
             tousMemeOperateur = true;
+            aPrefixeInconnu = false;
             inputs.forEach(function (inp) {
                 if (inp.dataset.estNous === '0') {
                     tousMemeOperateur = false;
+                }
+                if (inp.dataset.prefixeConnu === '0') {
+                    aPrefixeInconnu = true;
                 }
             });
         }
@@ -221,6 +228,15 @@
             const montant = parseFloat(montantInput.value) || 0;
 
             checkTousMemeOperateur();
+
+            const submitBtn = document.querySelector('#transfertForm button[type="submit"]');
+            if (aPrefixeInconnu) {
+                submitBtn.disabled = true;
+                submitBtn.title = 'Un destinataire a un préfixe inconnu';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.title = '';
+            }
 
             // Info nombre destinataires
             if (nb > 1) {

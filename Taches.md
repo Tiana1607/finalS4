@@ -70,7 +70,7 @@
 
 # Version 2
 
-## BDD: Ensemble
+## BDD: 
 - Migration table operateurs [x] Rovatiana
 - Migration ALTER prefixes : ajout colonne operateur_id [x] Rovatiana
 - Migration ALTER transactions : ajout operateur_destinataire_id, commission_externe, groupe_id [x] Rovatiana
@@ -78,7 +78,7 @@
 - Seeder operateur + préfixes avec operateur_id [x] Rovatiana
 - base.sql : schéma complet v2 + seed data [x] Rovatiana
 
-## Coté Opérateur :
+## Coté Opérateur : Jérémie
 
 - Page Liste préfixe (mise à jour)
     - Fonction lister les préfixes avec leur opérateur associé []
@@ -120,4 +120,4 @@
     - Vue formulaire multi-destinataires + récapitulatif [x] Rovatiana
 - Page Historique (mise à jour)
     - TransactionsModel : jointure transferts_groupes + groupe_nb [x] Rovatiana
-- Ajout truc de commission dans les calculs []
+- Ajout truc de commission dans les calculs [x]

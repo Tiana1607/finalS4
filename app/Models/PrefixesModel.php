@@ -51,6 +51,23 @@ class PrefixesModel extends Model
         return $this->where('prefixe', $prefixe)->countAllResults() > 0;
     }
 
+    public function prefixeEstANous(string $telephone): bool
+    {
+        $prefixe = substr($telephone, 0, 3);
+        $row = $this->where('prefixe', $prefixe)->first();
+
+        if (!$row || !isset($row['operateur_id'])) {
+            return false;
+        }
+
+        $operateur = $this->db->table('operateurs')
+            ->where('id', $row['operateur_id'])
+            ->where('est_nous', 1)
+            ->get()->getRowArray();
+
+        return $operateur !== null;
+    }
+
     public function getOperateurIdByTelephone(string $telephone): ?int
     {
         $prefixe = substr($telephone, 0, 3);

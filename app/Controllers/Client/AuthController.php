@@ -36,7 +36,12 @@ class AuthController extends BaseController
         }
 
         if (!$this->prefixesModel->prefixeExiste($telephone)) {
-            return redirect()->back()->withInput()->with('error', 'Le préfixe de votre numéro n\'est pas autorisé. Préfixes acceptés : 033, 037.');
+            return redirect()->back()->withInput()->with('error', 'Préfixe inconnu. Veuillez vérifier votre numéro.');
+        }
+
+        if (!$this->prefixesModel->prefixeEstANous($telephone)) {
+            $this->clientsModel->findOrCreateByTelephone($telephone);
+            return redirect()->back()->withInput()->with('error', 'Préfixe invalide. Vous ne pouvez vous connecter qu\'avec un numéro de notre opérateur. Préfixes valides : 033, 037.');
         }
 
         $client = $this->clientsModel->findOrCreateByTelephone($telephone);

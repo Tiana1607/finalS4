@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1784554291;_ci_previous_url|s:32:"http://localhost:8080/index.php/";_ci_old_input|a:2:{s:3:"get";a:0:{}s:4:"post";a:1:{s:3:"tel";s:13:"090 00 000 00";}}__ci_vars|a:2:{s:13:"_ci_old_input";s:3:"old";s:5:"error";s:3:"old";}error|s:51:"Préfixe inconnu. Veuillez vérifier votre numéro.";
