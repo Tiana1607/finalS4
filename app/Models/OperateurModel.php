@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PrefixesModel extends Model
+class OperateurModel extends Model
 {
-    protected $table            = 'prefixes';
+    protected $table            = 'operateurs';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['prefixe', 'operateur_id', 'date_creation'];
+    protected $allowedFields    = ['nom', 'est_nous'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -41,21 +41,13 @@ class PrefixesModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    /**
-     * Vérifie si le préfixe du numéro existe dans la table prefixes.
-     */
-    public function prefixeExiste(string $telephone): bool
+    public function getNotreOperateur(): ?array
     {
-        $prefixe = substr($telephone, 0, 3);
-
-        return $this->where('prefixe', $prefixe)->countAllResults() > 0;
+        return $this->where('est_nous', 1)->first();
     }
 
-    public function getOperateurIdByTelephone(string $telephone): ?int
+    public function getOperateursExterne(): array
     {
-        $prefixe = substr($telephone, 0, 3);
-        $row = $this->where('prefixe', $prefixe)->first();
-
-        return isset($row['operateur_id']) ? (int) $row['operateur_id'] : null;
+        return $this->where('est_nous', 0)->findAll();
     }
 }

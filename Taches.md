@@ -71,12 +71,12 @@
 # Version 2
 
 ## BDD: Ensemble
-- Migration table operateurs []
-- Migration ALTER prefixes : ajout colonne operateur_id []
-- Migration table commissions_externes []
-- Migration ALTER transactions : ajout operateur_destinataire_id, commission_externe, frais_retrait_inclus, montant_frais_retrait_couvert, groupe_id []
-- Migration table transferts_groupes []
-- Seeder operateur "nous" + rattachement des préfixes existants []
+- Migration table operateurs [x] Rovatiana
+- Migration ALTER prefixes : ajout colonne operateur_id [x] Rovatiana
+- Migration ALTER transactions : ajout operateur_destinataire_id, commission_externe, groupe_id [x] Rovatiana
+- Migration table transferts_groupes [x] Rovatiana
+- Seeder operateur + préfixes avec operateur_id [x] Rovatiana
+- base.sql : schéma complet v2 + seed data [x] Rovatiana
 
 ## Coté Opérateur :
 
@@ -107,14 +107,16 @@
 ## Coté Client : Rovatiana
 
 - Page Transfert (mise à jour)
-    - Fonction détection opérateur destinataire (interne/externe via prefixes) []
-    - Fonction calcul commission externe si destinataire hors réseau []
-    - Vue : case à cocher "inclure frais de retrait" + récapitulatif frais détaillé []
+    - OperateurModel + TransfertsGroupeModel créés [x] Rovatiana
+    - PrefixesModel : ajout operateur_id + getOperateurIdByTelephone() [x] Rovatiana
+    - Fonction détection opérateur destinataire (interne/externe via AJAX) [x] Rovatiana
+    - Radio frais_retrait visible uniquement si destinataire même opérateur [x] Rovatiana
+    - Vue : multi-destinataires dynamique (ajout/suppression) [x] Rovatiana
 - Page Envoi multiple
-    - Fonction validation liste de numéros destinataires (existence/opérateur pour chacun) []
-    - Fonction répartition du montant total / nombre de destinataires []
-    - Fonction validation solde suffisant (montant total + somme des frais) []
-    - Fonction création transferts_groupes + boucle transactions liées (groupe_id) []
-    - Vue formulaire multi-destinataires + récapitulatif avant confirmation []
+    - Envoi multiple vers N destinataires (même opérateur uniquement) [x] Rovatiana
+    - Répartition du montant total / nombre de destinataires [x] Rovatiana
+    - Validation solde suffisant (montant total + somme des frais) [x] Rovatiana
+    - Création transferts_groupes + transactions liées (groupe_id) [x] Rovatiana
+    - Vue formulaire multi-destinataires + récapitulatif [x] Rovatiana
 - Page Historique (mise à jour)
-    - Fonction affichage détail transferts groupés []
+    - TransactionsModel : jointure transferts_groupes + groupe_nb [x] Rovatiana

@@ -54,6 +54,7 @@ $routes->post('/client/retrait', 'Client\ClientsController::retrait', ['filter' 
 // Client : Transfert
 $routes->get('/client/transfert', 'Client\ClientsController::showTransfertForm', ['filter' => 'clientAuth']);
 $routes->post('/client/transfert', 'Client\ClientsController::transfert', ['filter' => 'clientAuth']);
+$routes->get('/client/transfert/detecter-operateur', 'Client\ClientsController::detecterOperateur', ['filter' => 'clientAuth']);
 
 // Client : Historique
 $routes->get('/client/historique', 'Client\ClientsController::showHistorique', ['filter' => 'clientAuth']);

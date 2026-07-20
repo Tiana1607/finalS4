@@ -7,6 +7,8 @@ use App\Models\Client\ClientsModel;
 use App\Models\Client\TransactionsModel;
 use App\Models\TrancheMontantModel;
 use App\Models\PrefixesModel;
+use App\Models\OperateurModel;
+use App\Models\TransfertsGroupeModel;
 use \Config\Database;
 
 class ClientsController extends BaseController
@@ -16,6 +18,8 @@ class ClientsController extends BaseController
     protected TransactionsModel $transactionsModel;
     protected TrancheMontantModel $trancheModel;
     protected PrefixesModel $prefixesModel;
+    protected OperateurModel $operateurModel;
+    protected TransfertsGroupeModel $groupeModel;
 
     // IDs des types d'opération (voir TypesOperationSeeder)
     protected int $typeOperationDepot    = 1;
@@ -29,6 +33,8 @@ class ClientsController extends BaseController
         $this->transactionsModel = new TransactionsModel();
         $this->trancheModel      = new TrancheMontantModel();
         $this->prefixesModel     = new PrefixesModel();
+        $this->operateurModel    = new OperateurModel();
+        $this->groupeModel       = new TransfertsGroupeModel();
     }
 
     // ──────────────────────── Authentification ────────────────────────
@@ -193,64 +199,125 @@ class ClientsController extends BaseController
 
     public function showTransfertForm()
     {
-        $client = $this->clientsModel->find(session()->get('client_id'));
+        $client  = $this->clientsModel->find(session()->get('client_id'));
+        $emetteurOperateurId = $this->prefixesModel->getOperateurIdByTelephone($client['telephone']);
 
-        return view('client/transfert', ['client' => $client]);
+        return view('client/transfert', [
+            'client'  => $client,
+            'emetteurOperateurId' => $emetteurOperateurId,
+        ]);
+    }
+
+    public function detecterOperateur()
+    {
+        $telephone = preg_replace('/\s+/', '', trim($this->request->getGet('tel') ?? ''));
+        $clientId  = session()->get('client_id');
+
+        if (strlen($telephone) < 3) {
+            return $this->response->setJSON(['operateur_id' => null, 'est_nous' => false, 'nom' => '']);
+        }
+
+        $operateurId = $this->prefixesModel->getOperateurIdByTelephone($telephone);
+        $emetteur    = $this->clientsModel->find($clientId);
+        $emetteurOp  = $this->prefixesModel->getOperateurIdByTelephone($emetteur['telephone']);
+
+        $estNous = ($operateurId !== null && $emetteurOp !== null && $operateurId === $emetteurOp);
+
+        $nom = '';
+        if ($operateurId !== null) {
+            $op = $this->operateurModel->find($operateurId);
+            $nom = $op ? $op['nom'] : '';
+        }
+
+        return $this->response->setJSON([
+            'operateur_id' => $operateurId,
+            'est_nous'     => $estNous,
+            'nom'          => $nom,
+        ]);
     }
 
     public function transfert()
     {
         $montant         = $this->request->getPost('montant');
-        $destinataireTel = $this->request->getPost('destinataire');
+        $destinataireTels = $this->request->getPost('destinataires') ?? [];
         $avecFraisRetrait = (int) $this->request->getPost('frais_retrait');
         $clientId        = session()->get('client_id');
 
-        // Validation : montant requis, numérique, supérieur à 0
+        // Validation montant
         if (empty($montant) || !is_numeric($montant) || $montant <= 0) {
             return redirect()->back()->withInput()->with('error', 'Veuillez saisir un montant valide supérieur à 0.');
         }
+        $montant = (float) $montant;
 
-        $montant = $montant;
+        // Filtrer les numéros vides
+        $destinataireTels = array_filter($destinataireTels, fn($t) => !empty(trim($t)));
+        $destinataireTels = array_values($destinataireTels);
 
-        // Validation : destinataire requis
-        if (empty(trim($destinataireTel))) {
-            return redirect()->back()->withInput()->with('error', 'Veuillez saisir le numéro du destinataire.');
+        if (empty($destinataireTels)) {
+            return redirect()->back()->withInput()->with('error', 'Veuillez saisir au moins un numéro de destinataire.');
         }
 
-        // Supprimer les espaces et vérifier que le numéro fait exactement 10 chiffres
-        $destinataireTel = preg_replace('/\s+/', '', trim($destinataireTel));
-        if (!preg_match('/^\d{10}$/', $destinataireTel)) {
-            return redirect()->back()->withInput()->with('error', 'Le numéro du destinataire doit contenir exactement 10 chiffres (ex : 032 12 123 12).');
-        }
+        $nbDestinataires = count($destinataireTels);
+        $estMulti        = $nbDestinataires > 1;
 
-        // Vérifier que le destinataire existe
-        $destinataire = $this->clientsModel->findByTelephone($destinataireTel);
-
-        if ($destinataire === null) {
-            return redirect()->back()->withInput()->with('error', 'Aucun client trouvé avec le numéro ' . esc(trim($destinataireTel)) . '.');
-        }
-
-        // Vérifier qu'on ne se transfère pas à soi-même
-        if ((int) $destinataire['id'] === $clientId) {
-            return redirect()->back()->withInput()->with('error', 'Vous ne pouvez pas vous transférer à vous-même.');
-        }
-
-        // Calcul des frais de transfert via le barème opérateur
-        $fraisTransfert = $this->trancheModel->getFrais($this->typeOperationTransfert, $montant);
-
-        // Calcul des frais de retrait si l'émetteur choisit de les payer
-        $fraisRetrait = 0;
-        if ($avecFraisRetrait === 1) {
-            $fraisRetrait = $this->trancheModel->getFrais($this->typeOperationRetrait, $montant);
-        }
-
-        $totalFrais = $fraisTransfert + $fraisRetrait;
-
-        // Récupérer le solde de l'émetteur
+        // Valider chaque destinataire
+        $destinatairesValides = [];
         $emetteur = $this->clientsModel->find($clientId);
-        $solde    = $emetteur['solde'];
+        $emetteurOperateurId = $this->prefixesModel->getOperateurIdByTelephone($emetteur['telephone']);
+        $tousMemeOperateur   = true;
 
-        // Vérifier que le solde est suffisant
+        foreach ($destinataireTels as $tel) {
+            $tel = preg_replace('/\s+/', '', trim($tel));
+
+            if (!preg_match('/^\d{10}$/', $tel)) {
+                return redirect()->back()->withInput()->with('error', 'Chaque numéro doit contenir exactement 10 chiffres (ex : 032 12 123 12).');
+            }
+
+            $destinataire = $this->clientsModel->findByTelephone($tel);
+
+            if ($destinataire === null) {
+                return redirect()->back()->withInput()->with('error', 'Aucun client trouvé avec le numéro ' . esc(formaterTelephone($tel)) . '.');
+            }
+
+            if ((int) $destinataire['id'] === $clientId) {
+                return redirect()->back()->withInput()->with('error', 'Vous ne pouvez pas vous transférer à vous-même (' . esc(formaterTelephone($tel)) . ').');
+            }
+
+            $destOperateurId = $this->prefixesModel->getOperateurIdByTelephone($tel);
+            if ($destOperateurId !== $emetteurOperateurId) {
+                $tousMemeOperateur = false;
+            }
+
+            $destinatairesValides[] = [
+                'client'           => $destinataire,
+                'operateur_id'     => $destOperateurId,
+                'est_nous'         => ($destOperateurId === $emetteurOperateurId),
+            ];
+        }
+
+        // Calcul des frais
+        $montantParDest = $montant;
+        $totalFrais     = 0;
+        $totalCredit    = 0;
+
+        if ($estMulti) {
+            $montantParDest = $montant / $nbDestinataires;
+        }
+
+        foreach ($destinatairesValides as $d) {
+            $fraisTransfert = $this->trancheModel->getFrais($this->typeOperationTransfert, $montantParDest);
+            $fraisRetrait   = 0;
+
+            if ($d['est_nous'] && $avecFraisRetrait === 1) {
+                $fraisRetrait = $this->trancheModel->getFrais($this->typeOperationRetrait, $montantParDest);
+            }
+
+            $totalFrais  += $fraisTransfert + $fraisRetrait;
+            $totalCredit += $montantParDest + $fraisRetrait;
+        }
+
+        // Vérifier solde
+        $solde = $emetteur['solde'];
         $coutTotal = $montant + $totalFrais;
         if ($solde < $coutTotal) {
             return redirect()->back()->withInput()->with('error', 'Solde insuffisant. Solde actuel : '
@@ -259,24 +326,50 @@ class ClientsController extends BaseController
         }
 
         // Débiter l'émetteur
-        $nouveauSoldeEmetteur = $solde - $montant - $totalFrais;
-        $this->clientsModel->update($clientId, ['solde' => $nouveauSoldeEmetteur]);
+        $this->clientsModel->update($clientId, ['solde' => $solde - $coutTotal]);
 
-        // Créditer le destinataire
-        $creditDestinataire = $montant + $fraisRetrait;
-        $nouveauSoldeDestinataire = $destinataire['solde'] + $creditDestinataire;
-        $this->clientsModel->update($destinataire['id'], ['solde' => $nouveauSoldeDestinataire]);
+        // Créer le groupe si multi
+        $groupeId = null;
+        if ($estMulti) {
+            $groupeId = $this->groupeModel->insert([
+                'client_id'        => $clientId,
+                'montant_total'    => $montant,
+                'nb_destinataires' => $nbDestinataires,
+            ]);
+        }
 
-        // Enregistrer la transaction
-        $this->transactionsModel->insert([
-            'client_id'         => $clientId,
-            'destinataire_id'   => $destinataire['id'],
-            'type_operation_id' => $this->typeOperationTransfert,
-            'montant'           => $montant,
-            'frais'             => $totalFrais,
-        ]);
+        // Traiter chaque destinataire
+        $noms = [];
+        foreach ($destinatairesValides as $d) {
+            $fraisTransfert = $this->trancheModel->getFrais($this->typeOperationTransfert, $montantParDest);
+            $fraisRetrait   = 0;
 
-        $message = 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . esc(formaterTelephone($destinataire['telephone'])) . ' effectué avec succès.';
+            if ($d['est_nous'] && $avecFraisRetrait === 1) {
+                $fraisRetrait = $this->trancheModel->getFrais($this->typeOperationRetrait, $montantParDest);
+            }
+
+            $totalFraisDest = $fraisTransfert + $fraisRetrait;
+            $creditDest     = $montantParDest + $fraisRetrait;
+
+            $this->clientsModel->update($d['client']['id'], [
+                'solde' => $d['client']['solde'] + $creditDest,
+            ]);
+
+            $this->transactionsModel->insert([
+                'client_id'                   => $clientId,
+                'destinataire_id'             => $d['client']['id'],
+                'type_operation_id'           => $this->typeOperationTransfert,
+                'montant'                     => $montantParDest,
+                'frais'                       => $totalFraisDest,
+                'operateur_destinataire_id'   => $d['operateur_id'],
+                'groupe_id'                   => $groupeId,
+            ]);
+
+            $noms[] = formaterTelephone($d['client']['telephone']);
+        }
+
+        $liste = implode(', ', $noms);
+        $message = 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . $liste . ' effectué avec succès.';
         if ($totalFrais > 0) {
             $message .= ' Frais : ' . number_format($totalFrais, 0, ',', ' ') . ' Ar.';
         }
@@ -311,7 +404,7 @@ class ClientsController extends BaseController
         $clientId = session()->get('client_id');
 
         // Si requête AJAX → retourner du JSON
-        if ($this->request->getHeader('X-Requested-With') === 'XMLHttpRequest') {
+        if ($this->request->header('X-Requested-With')->getValue() === 'XMLHttpRequest') {
             $filtres = [
                 'type_operation' => $this->request->getGet('type_operation'),
                 'date_debut'     => $this->request->getGet('date_debut'),

@@ -12,7 +12,7 @@ class TransactionsModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['client_id', 'destinataire_id', 'type_operation_id', 'montant', 'frais', 'date_operation'];
+    protected $allowedFields    = ['client_id', 'destinataire_id', 'type_operation_id', 'montant', 'frais', 'operateur_destinataire_id', 'commission_externe', 'groupe_id', 'date_operation'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -65,9 +65,10 @@ class TransactionsModel extends Model
     public function getHistoriqueFiltre(int $clientId, array $filtres = [], string $triDate = 'DESC'): array
     {
         $builder = $this->db->table('transactions t');
-        $builder->select('t.*, to2.libelle as type_libelle, c_dest.telephone as destinataire_tel');
+        $builder->select('t.*, to2.libelle as type_libelle, c_dest.telephone as destinataire_tel, tg.nb_destinataires as groupe_nb');
         $builder->join('types_operation to2', 'to2.id = t.type_operation_id', 'left');
         $builder->join('clients c_dest', 'c_dest.id = t.destinataire_id', 'left');
+        $builder->join('transferts_groupes tg', 'tg.id = t.groupe_id', 'left');
         $builder->where('t.client_id', $clientId);
 
         // Filtre par type d'opération
