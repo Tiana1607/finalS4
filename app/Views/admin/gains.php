@@ -17,20 +17,24 @@
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <div class="mb-3">
-                <a href="/admin/dashboard" class="text-decoration-none">&larr; Retour au tableau de bord</a>
-            </div>
+            <a href="/admin/dashboard" class="back-link">&larr; Retour au tableau de bord</a>
 
-            <h4 class="mb-4">Situation des Gains</h4>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Revenus opérateur</div>
+                    <h1 class="page-title">Situation des Gains</h1>
+                    <p class="page-subtitle">Analyse des frais générés par les retraits et transferts.</p>
+                </div>
+            </div>
 
             <!-- ─── Cartes résumé ─── -->
             <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="card shadow-sm border-0 h-100">
+                <div class="col-md-4">
+                    <div class="card kpi-card kpi-warning h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains — Retraits</h6>
                             <h3 class="mb-1" style="color: var(--color-retrait)"><?= number_format($totalRetrait, 0, ',', '.') ?> Ar</h3>
@@ -38,8 +42,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card shadow-sm border-0 h-100">
+                <div class="col-md-4">
+                    <div class="card kpi-card kpi-info h-100">
                         <div class="card-body text-center">
                             <h6 class="text-muted mb-1">Gains — Transferts</h6>
                             <h3 class="mb-1" style="color: var(--color-transfert)"><?= number_format($totalTransfert, 0, ',', '.') ?> Ar</h3>

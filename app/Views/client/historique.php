@@ -19,13 +19,17 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container page-shell">
 
-        <div class="mb-3">
-            <a href="<?= base_url('/client/dashboard') ?>" class="text-decoration-none">&larr; Retour</a>
+        <a href="<?= base_url('/client/dashboard') ?>" class="back-link">&larr; Retour</a>
+
+        <div class="page-header">
+            <div>
+                <div class="page-kicker">Mouvements</div>
+                <h1 class="page-title">Historique des transactions</h1>
+                <p class="page-subtitle"><?= count($historique) ?> transaction(s) dans votre portefeuille.</p>
+            </div>
         </div>
-
-        <h5 class="mb-3">Historique des transactions</h5>
 
         <!-- Formulaire de filtres AJAX -->
         <!-- <div class="card shadow-sm mb-4 filtre-card">
@@ -86,6 +90,8 @@
         </div>
 
         <?php if (!empty($historique)): ?>
+            <div class="card">
+            <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
@@ -120,7 +126,11 @@
                     </tbody>
                 </table>
             </div>
+            </div>
+            </div>
         <?php else: ?>
+            <div class="card">
+            <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
@@ -134,6 +144,8 @@
                     </thead>
                     <tbody id="historiqueBody"></tbody>
                 </table>
+            </div>
+            </div>
             </div>
         <?php endif; ?>
 

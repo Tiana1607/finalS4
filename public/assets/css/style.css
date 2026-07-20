@@ -11,7 +11,7 @@
     --color-primary: #1b4332;
     --color-primary-light: #2d6a4f;
     --color-accent: #40916c;
-    --color-surface: #f4f7f5;
+    --color-surface: #eef5f1;
     --color-card: #ffffff;
     --color-text: #1a1a2e;
     --color-muted: #6c757d;
@@ -24,9 +24,9 @@
     --color-retrait: #e9c46a;
     --color-transfert: #264653;
     --color-historique: #6c757d;
-    --radius: 0.625rem;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --radius: 0.5rem;
+    --shadow-sm: 0 10px 24px rgba(27, 67, 50, 0.08);
+    --shadow: 0 18px 42px rgba(27, 67, 50, 0.13);
     --transition: 0.2s ease;
 }
 
@@ -34,7 +34,9 @@
 
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--color-surface);
+    background:
+        radial-gradient(circle at top left, rgba(64, 145, 108, 0.16), transparent 30rem),
+        linear-gradient(180deg, #f8fbf9 0%, var(--color-surface) 52%, #f7f9f5 100%);
     color: var(--color-text);
     min-height: 100vh;
 }
@@ -51,25 +53,33 @@ a:hover {
 /* ── Navbar ───────────────────────────────── */
 
 .navbar {
-    background: var(--color-primary) !important;
-    box-shadow: var(--shadow);
+    background: linear-gradient(135deg, var(--color-primary), #123426) !important;
+    box-shadow: 0 12px 30px rgba(18, 52, 38, 0.18);
 }
 .navbar .navbar-brand {
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
+}
+.navbar .container {
+    gap: 0.75rem;
+}
+.navbar .btn {
+    white-space: nowrap;
 }
 
 /* ── Cards ────────────────────────────────── */
 
 .card {
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(27, 67, 50, 0.08);
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     background: var(--color-card);
-    transition: box-shadow var(--transition);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 .card:hover {
+    transform: translateY(-1px);
     box-shadow: var(--shadow);
+    border-color: rgba(64, 145, 108, 0.22);
 }
 .card-title {
     color: var(--color-primary);
@@ -80,8 +90,9 @@ a:hover {
 
 .btn {
     border-radius: var(--radius);
-    font-weight: 500;
+    font-weight: 700;
     transition: all var(--transition);
+    min-height: 2.55rem;
 }
 .btn-primary {
     background: var(--color-primary);
@@ -169,6 +180,15 @@ a:hover {
     border-color: var(--color-accent);
     box-shadow: 0 0 0 0.2rem rgba(45, 106, 79, 0.15);
 }
+.form-control,
+.form-select,
+.input-group-text {
+    border-color: rgba(27, 67, 50, 0.14);
+    border-radius: var(--radius);
+}
+.input-group .form-control {
+    min-height: 2.75rem;
+}
 .form-label {
     font-weight: 500;
     font-size: 0.875rem;
@@ -185,6 +205,7 @@ a:hover {
 .table {
     border-radius: var(--radius);
     overflow: hidden;
+    font-size: 0.92rem;
 }
 .table thead.table-dark th {
     background: var(--color-primary);
@@ -195,6 +216,10 @@ a:hover {
 }
 .table-hover tbody tr:hover {
     background-color: rgba(45, 106, 79, 0.04);
+}
+.table td,
+.table th {
+    padding: 0.88rem 0.95rem;
 }
 
 /* ── Alerts ───────────────────────────────── */
@@ -229,6 +254,7 @@ a:hover {
 .auth-card {
     max-width: 420px;
     width: 100%;
+    border-top: 4px solid var(--color-accent);
 }
 .auth-card .card-body {
     padding: 2.5rem;
@@ -243,7 +269,7 @@ a:hover {
 /* ── Dashboard buttons ────────────────────── */
 
 .d-grid .btn {
-    text-align: left;
+    text-align: center;
     padding: 0.75rem 1rem;
     font-size: 0.95rem;
 }
@@ -300,10 +326,160 @@ a:hover {
 /* ── Solde display ────────────────────────── */
 
 .solde-display {
-    font-size: 1.75rem;
+    font-size: clamp(1.55rem, 4vw, 2.15rem);
     font-weight: 700;
     color: var(--color-success);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── App shell and dashboards ─────────────── */
+
+.page-shell {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+.page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.35rem;
+}
+.page-kicker {
+    color: var(--color-primary-light);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+.page-title {
+    color: var(--color-primary);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: 800;
+    margin: 0;
+}
+.page-subtitle {
+    color: var(--color-muted);
+    margin: 0.25rem 0 0;
+}
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.hero-panel {
+    background: linear-gradient(135deg, var(--color-primary), #20533f 58%, var(--color-accent));
+    color: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.25rem, 4vw, 2rem);
+    position: relative;
+    overflow: hidden;
+}
+.hero-panel::after {
+    content: "";
+    position: absolute;
+    right: -4rem;
+    top: -5rem;
+    width: 15rem;
+    height: 15rem;
+    border: 2rem solid rgba(233, 196, 106, 0.16);
+    border-radius: 999rem;
+}
+.hero-panel > * {
+    position: relative;
+    z-index: 1;
+}
+.hero-label {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+.hero-balance {
+    font-size: clamp(2rem, 7vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0.35rem 0;
+    font-variant-numeric: tabular-nums;
+}
+.kpi-card {
+    min-height: 9rem;
+    overflow: hidden;
+    position: relative;
+}
+.kpi-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0.35rem;
+    background: var(--color-accent);
+}
+.kpi-card.kpi-warning::before { background: var(--color-warning); }
+.kpi-card.kpi-info::before { background: var(--color-info); }
+.kpi-card.kpi-muted::before { background: var(--color-historique); }
+.kpi-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 0.7rem;
+    background: rgba(64, 145, 108, 0.12);
+    color: var(--color-primary);
+    font-weight: 900;
+}
+.kpi-value {
+    color: var(--color-primary);
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+.action-card {
+    display: block;
+    color: var(--color-text);
+    height: 100%;
+}
+.action-card .card-body {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.action-icon {
+    flex: 0 0 auto;
+    display: inline-grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    color: #fff;
+    background: var(--color-primary);
+    font-weight: 900;
+}
+.action-arrow {
+    margin-left: auto;
+    color: var(--color-primary-light);
+    font-size: 1.35rem;
+    font-weight: 900;
+}
+.panel-title {
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 0.9rem;
+}
+.money-card {
+    border-top: 4px solid var(--color-accent);
+}
+.recap-panel {
+    background: #f7fbf8;
+    border: 1px solid rgba(64, 145, 108, 0.18);
+    border-radius: var(--radius);
 }
 
 /* ── Transfert radio cards ────────────────── */
@@ -338,6 +514,13 @@ a:hover {
     }
     .table {
         font-size: 0.85rem;
+    }
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .action-card .card-body {
+        align-items: flex-start;
     }
 }
 

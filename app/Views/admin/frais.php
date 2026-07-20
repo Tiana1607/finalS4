@@ -17,11 +17,18 @@
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <h4 class="mb-4">Gestion des Frais</h4>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Barèmes</div>
+                    <h1 class="page-title">Gestion des Frais</h1>
+                    <p class="page-subtitle">Paramétrez les tranches appliquées aux opérations Mobile Money.</p>
+                </div>
+                <a href="/admin/dashboard" class="btn btn-outline-secondary">Tableau de bord</a>
+            </div>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
@@ -52,7 +59,7 @@
             <!-- Formulaire d'ajout -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">Ajouter une tranche</h5>
+                    <h5 class="panel-title">Ajouter une tranche</h5>
                     <form action="/admin/frais/ajouter" method="post">
                         <?= csrf_field() ?>
                         <input type="hidden" name="type_operation_id" value="<?= esc($typeId) ?>">
@@ -83,11 +90,12 @@
             <!-- Tableau des tranches -->
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Tranches de frais — <?= esc(ucfirst($types[array_search($typeId, array_column($types, 'id'))]['libelle'] ?? '')) ?></h5>
+                    <h5 class="panel-title">Tranches de frais — <?= esc(ucfirst($types[array_search($typeId, array_column($types, 'id'))]['libelle'] ?? '')) ?></h5>
 
                     <?php if (empty($tranches)): ?>
                         <p class="text-muted">Aucune tranche enregistrée pour ce type d'opération.</p>
                     <?php else: ?>
+                        <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
@@ -127,13 +135,11 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
 
-            <div class="text-center mt-3">
-                <a href="/admin/dashboard" class="btn btn-outline-secondary">Retour au tableau de bord</a>
-            </div>
         </div>
     </div>
 </div>

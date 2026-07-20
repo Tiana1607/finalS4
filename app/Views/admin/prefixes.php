@@ -17,11 +17,18 @@
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <h4 class="mb-4">Gestion des Préfixes</h4>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Réseau</div>
+                    <h1 class="page-title">Gestion des Préfixes</h1>
+                    <p class="page-subtitle">Contrôlez les numéros autorisés et les opérateurs externes.</p>
+                </div>
+                <a href="/admin/prefixes/ajouter" class="btn btn-primary">+ Ajouter un préfixe</a>
+            </div>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
@@ -68,6 +75,7 @@
                     <?php if (empty($nosPrefixes)): ?>
                         <p class="text-muted">Aucun préfixe enregistré.</p>
                     <?php else: ?>
+                        <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
@@ -96,6 +104,7 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -108,6 +117,7 @@
                     <?php if (empty($autresPrefixes)): ?>
                         <p class="text-muted">Aucun préfixe externe enregistré.</p>
                     <?php else: ?>
+                        <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-secondary">
                                 <tr>
@@ -138,6 +148,7 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>

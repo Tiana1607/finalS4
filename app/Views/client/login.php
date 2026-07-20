@@ -14,8 +14,9 @@
             <div class="card-body">
                 <div class="text-center mb-4">
                     <img src="<?= base_url('assets/img/online-payment.png') ?>" alt="Logo" class="auth-logo">
-                    <h4 class="fw-bold">Connexion Client</h4>
-                    <p class="text-muted small">Entrez votre numéro de téléphone pour vous connecter.</p>
+                    <div class="page-kicker">Mobile Money</div>
+                    <h1 class="page-title">Connexion Client</h1>
+                    <p class="text-muted small mb-0">Accédez à votre portefeuille par numéro de téléphone.</p>
                 </div>
 
                 <?php if (session()->getFlashdata('error')): ?>

@@ -17,17 +17,19 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container page-shell">
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <div class="mb-3">
-                    <a href="<?= base_url('/client/dashboard') ?>" class="text-decoration-none">&larr; Retour</a>
-                </div>
+                <a href="<?= base_url('/client/dashboard') ?>" class="back-link">&larr; Retour</a>
 
-                <div class="card shadow-sm">
+                <div class="card shadow-sm money-card">
                     <div class="card-body p-4">
-                        <h5 class="card-title text-center mb-3">Retrait</h5>
-                        <p class="text-muted text-center solde-display mb-3"><?= number_format($client['solde'], 0, ',', ' ') ?> Ar</p>
+                        <div class="text-center mb-4">
+                            <div class="page-kicker">Sortie d'argent</div>
+                            <h1 class="page-title">Retrait</h1>
+                            <p class="text-muted mb-1">Solde actuel</p>
+                            <p class="solde-display mb-0"><?= number_format($client['solde'], 0, ',', ' ') ?> Ar</p>
+                        </div>
 
                         <?php if (session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -45,10 +47,11 @@
 
                         <form action="<?= base_url('/client/retrait') ?>" method="post">
                             <div class="mb-3">
-                                <label for="montant" class="form-label">Montant à retirer (Ar)</label>
+                                <label for="montant" class="form-label">Montant à retirer</label>
                                 <input type="number" class="form-control" id="montant" name="montant"
                                        placeholder="Ex: 5000" min="1" step="any"
                                        value="<?= old('montant') ?>" required autofocus>
+                                <div class="form-text">Les frais applicables seront calculés selon le barème.</div>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-warning">Retirer</button>

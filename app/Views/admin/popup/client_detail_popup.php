@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
 <body>
-<div class="container py-3">
+<div class="container page-shell">
     <!-- Résumé -->
     <div class="row g-3 mb-4">
         <div class="col-4">
-            <div class="card border-0 shadow-sm text-center h-100">
+            <div class="card kpi-card text-center h-100">
                 <div class="card-body py-2">
                     <small class="text-muted d-block">Solde</small>
                     <?php
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="col-4">
-            <div class="card border-0 shadow-sm text-center h-100">
+            <div class="card kpi-card kpi-info text-center h-100">
                 <div class="card-body py-2">
                     <small class="text-muted d-block">Transactions</small>
                     <strong class="fs-5"><?= count($transactions) ?></strong>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="col-4">
-            <div class="card border-0 shadow-sm text-center h-100">
+            <div class="card kpi-card kpi-muted text-center h-100">
                 <div class="card-body py-2">
                     <small class="text-muted d-block">Inscrit le</small>
                     <strong class="fs-6"><?= esc($client['date_creation']) ?></strong>
@@ -43,11 +43,13 @@
     </div>
 
     <!-- Historique -->
-    <h6 class="mb-3">Historique des opérations</h6>
+    <h6 class="panel-title">Historique des opérations</h6>
 
     <?php if (empty($transactions)): ?>
         <p class="text-muted text-center">Aucune transaction pour ce client.</p>
     <?php else: ?>
+        <div class="card">
+        <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-sm table-hover align-middle mb-0">
                 <thead class="table-dark">
@@ -84,6 +86,8 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        </div>
+        </div>
         </div>
     <?php endif; ?>
 </div>

@@ -17,13 +17,18 @@
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-6">
 
-            <a href="/admin/prefixes" class="text-decoration-none mb-3 d-inline-block">&larr; Retour à la liste des préfixes</a>
-
-            <h4 class="mb-4">Ajouter un préfixe</h4>
+            <a href="/admin/prefixes" class="back-link">&larr; Retour aux préfixes</a>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Réseau</div>
+                    <h1 class="page-title">Ajouter un préfixe</h1>
+                    <p class="page-subtitle">Associez un préfixe à votre opérateur ou à un opérateur externe.</p>
+                </div>
+            </div>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
@@ -50,7 +55,7 @@
                 </div>
             <?php endif; ?>
 
-            <div class="card shadow-sm">
+            <div class="card shadow-sm money-card">
                 <div class="card-body">
                     <form action="/admin/prefixes" method="post">
                         <?= csrf_field() ?>

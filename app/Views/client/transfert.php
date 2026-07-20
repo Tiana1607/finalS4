@@ -17,17 +17,19 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container page-shell">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <a href="<?= base_url('/client/dashboard') ?>" class="text-decoration-none">&larr; Retour</a>
-                </div>
+            <div class="col-lg-7">
+                <a href="<?= base_url('/client/dashboard') ?>" class="back-link">&larr; Retour</a>
 
-                <div class="card shadow-sm">
+                <div class="card shadow-sm money-card">
                     <div class="card-body p-4">
-                        <h5 class="card-title text-center mb-3">Transfert</h5>
-                        <p class="text-muted text-center solde-display mb-3"><?= number_format($client['solde'], 0, ',', ' ') ?> Ar</p>
+                        <div class="text-center mb-4">
+                            <div class="page-kicker">Envoi d'argent</div>
+                            <h1 class="page-title">Transfert</h1>
+                            <p class="text-muted mb-1">Solde disponible</p>
+                            <p class="solde-display mb-0"><?= number_format($client['solde'], 0, ',', ' ') ?> Ar</p>
+                        </div>
 
                         <?php if (session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -62,7 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAjouterDestinataire">
+                                <button type="button" class="btn btn-sm btn-outline-secondary text-center" id="btnAjouterDestinataire">
                                     + Ajouter un destinataire
                                 </button>
                                 <small class="text-muted d-block mt-1" id="destinataireInfo"></small>
@@ -70,7 +72,7 @@
 
                             <!-- Montant -->
                             <div class="mb-3">
-                                <label for="montant" class="form-label">Montant total (Ar)</label>
+                                <label for="montant" class="form-label">Montant total</label>
                                 <input type="number" class="form-control" id="montant" name="montant"
                                        placeholder="Ex: 10000" min="1" step="any"
                                        value="<?= old('montant') ?>" required>
@@ -91,7 +93,7 @@
                             </div>
 
                             <!-- Récapitulatif -->
-                            <div class="alert alert-light border mb-3" id="recapBlock" style="display: none;">
+                            <div class="recap-panel p-3 mb-3" id="recapBlock" style="display: none;">
                                 <small>
                                     <strong>Récapitulatif :</strong><br>
                                     <span id="recapMontant"></span><br>

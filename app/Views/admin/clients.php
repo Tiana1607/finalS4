@@ -17,15 +17,19 @@
         </div>
     </nav>
 
-<div class="container py-4">
+<div class="container page-shell">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <div class="mb-3">
-                <a href="/admin/dashboard" class="text-decoration-none">&larr; Retour au tableau de bord</a>
-            </div>
+            <a href="/admin/dashboard" class="back-link">&larr; Retour au tableau de bord</a>
 
-            <h4 class="mb-4">Situation des Comptes Clients</h4>
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Comptes</div>
+                    <h1 class="page-title">Situation des Comptes Clients</h1>
+                    <p class="page-subtitle"><?= count($clients) ?> client(s) enregistré(s).</p>
+                </div>
+            </div>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
@@ -42,7 +46,7 @@
             <?php endif; ?>
 
             <div class="card shadow-sm">
-                <div class="card-body">
+                <div class="card-body p-0">
                     <?php if (empty($clients)): ?>
                         <p class="text-muted text-center mb-0">Aucun client enregistré.</p>
                     <?php else: ?>
