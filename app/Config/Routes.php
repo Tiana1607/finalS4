@@ -36,26 +36,26 @@ $routes->group('admin', function ($routes) {
 $routes->get('/', 'Home::index');
 
 // Client : Authentification
-$routes->get('/client/login', 'Client\ClientsController::showLoginForm');
-$routes->post('/client/login', 'Client\ClientsController::login');
-$routes->get('/client/logout', 'Client\ClientsController::logout');
+$routes->get('/client/login', 'Client\AuthController::showLoginForm');
+$routes->post('/client/login', 'Client\AuthController::login');
+$routes->get('/client/logout', 'Client\AuthController::logout');
 
-// Client : Pages protégées
-$routes->get('/client/dashboard', 'Client\ClientsController::dashboard', ['filter' => 'clientAuth']);
+// Client : Dashboard
+$routes->get('/client/dashboard', 'Client\AuthController::dashboard', ['filter' => 'clientAuth']);
 
 // Client : Dépôt
-$routes->get('/client/depot', 'Client\ClientsController::showDepotForm', ['filter' => 'clientAuth']);
-$routes->post('/client/depot', 'Client\ClientsController::depot', ['filter' => 'clientAuth']);
+$routes->get('/client/depot', 'Client\DepotController::showForm', ['filter' => 'clientAuth']);
+$routes->post('/client/depot', 'Client\DepotController::depot', ['filter' => 'clientAuth']);
 
 // Client : Retrait
-$routes->get('/client/retrait', 'Client\ClientsController::showRetraitForm', ['filter' => 'clientAuth']);
-$routes->post('/client/retrait', 'Client\ClientsController::retrait', ['filter' => 'clientAuth']);
+$routes->get('/client/retrait', 'Client\RetraitController::showForm', ['filter' => 'clientAuth']);
+$routes->post('/client/retrait', 'Client\RetraitController::retrait', ['filter' => 'clientAuth']);
 
 // Client : Transfert
-$routes->get('/client/transfert', 'Client\ClientsController::showTransfertForm', ['filter' => 'clientAuth']);
-$routes->post('/client/transfert', 'Client\ClientsController::transfert', ['filter' => 'clientAuth']);
-$routes->get('/client/transfert/detecter-operateur', 'Client\ClientsController::detecterOperateur', ['filter' => 'clientAuth']);
+$routes->get('/client/transfert', 'Client\TransfertController::showForm', ['filter' => 'clientAuth']);
+$routes->post('/client/transfert', 'Client\TransfertController::transfert', ['filter' => 'clientAuth']);
+$routes->get('/client/transfert/detecter-operateur', 'Client\TransfertController::detecterOperateur', ['filter' => 'clientAuth']);
 
 // Client : Historique
-$routes->get('/client/historique', 'Client\ClientsController::showHistorique', ['filter' => 'clientAuth']);
-$routes->match(['get', 'post'], '/client/historique/filtrer', 'Client\ClientsController::historique', ['filter' => 'clientAuth']);
+$routes->get('/client/historique', 'Client\HistoriqueController::showHistorique', ['filter' => 'clientAuth']);
+$routes->match(['get', 'post'], '/client/historique/filtrer', 'Client\HistoriqueController::historique', ['filter' => 'clientAuth']);
