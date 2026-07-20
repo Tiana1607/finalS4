@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historique</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
-
 <body class="bg-light">
 
-    <nav class="navbar navbar-dark bg-secondary">
+    <nav class="navbar navbar-dark">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Mon Compte</span>
             <a href="<?= base_url('/client/logout') ?>" class="btn btn-outline-light btn-sm">Déconnexion</a>
@@ -21,15 +20,15 @@
     <div class="container mt-4">
 
         <div class="mb-3">
-            <a href="<?= base_url('/client/dashboard') ?>" class="text-decoration-none">&larr; Retour au tableau de bord</a>
+            <a href="<?= base_url('/client/dashboard') ?>" class="text-decoration-none">&larr; Retour</a>
         </div>
 
         <h5 class="mb-3">Historique des transactions</h5>
 
-        <!-- Formulaire de filtres -->
-        <!-- <div class="card shadow-sm mb-4">
+        <!-- Formulaire de filtres AJAX -->
+        <div class="card shadow-sm mb-4 filtre-card">
             <div class="card-body">
-                <form action="<?= base_url('/client/historique') ?>" method="post">
+                <form action="<?= base_url('/client/historique') ?>" method="get" id="filtreForm">
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="type_operation" class="form-label">Type d'opération</label>
@@ -67,8 +66,8 @@
                         <div class="col-md-3">
                             <label for="tri_date" class="form-label">Tri par date</label>
                             <select class="form-select" id="tri_date" name="tri_date">
-                                <option value="DESC" <?= ($triDate ?? 'DESC') === 'DESC' ? 'selected' : '' ?>>Plus récent d'abord</option>
-                                <option value="ASC" <?= ($triDate ?? '') === 'ASC' ? 'selected' : '' ?>>Plus ancien d'abord</option>
+                                <option value="DESC" <?= ($triDate ?? 'DESC') === 'DESC' ? 'selected' : '' ?>>Plus récent</option>
+                                <option value="ASC" <?= ($triDate ?? '') === 'ASC' ? 'selected' : '' ?>>Plus ancien</option>
                             </select>
                         </div>
                         <div class="col-md-3 d-flex align-items-end">
@@ -77,11 +76,48 @@
                     </div>
                 </form>
             </div>
-        </div> -->
+        </div>
 
         <!-- Liste des transactions -->
-        <?php if (empty($historique)): ?>
-            <div class="alert alert-info">Aucune transaction trouvée.</div>
+        <div id="historiqueEmpty" class="alert alert-info <?= !empty($historique) ? 'd-none' : '' ?>">
+            Aucune transaction trouvée.
+        </div>
+
+        <?php if (!empty($historique)): ?>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Montant</th>
+                        <th>Frais</th>
+                        <th>Destinataire</th>
+                    </tr>
+                </thead>
+                <tbody id="historiqueBody">
+                    <?php foreach ($historique as $tx): ?>
+                        <tr>
+                            <td><?= date('d/m/Y H:i', strtotime($tx['date_operation'])) ?></td>
+                            <td>
+                                <?php
+                                $badgeClass = match($tx['type_libelle']) {
+                                    'depot'     => 'bg-success',
+                                    'retrait'   => 'bg-warning text-dark',
+                                    'transfert' => 'bg-info',
+                                    default     => 'bg-secondary',
+                                };
+                                ?>
+                                <span class="badge <?= $badgeClass ?>"><?= ucfirst($tx['type_libelle']) ?></span>
+                            </td>
+                            <td class="montant-badge"><?= number_format($tx['montant'], 0, ',', ' ') ?> Ar</td>
+                            <td><?= number_format($tx['frais'], 0, ',', ' ') ?> Ar</td>
+                            <td><?= $tx['destinataire_tel'] ? esc($tx['destinataire_tel']) : '—' ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <?php else: ?>
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
@@ -94,25 +130,17 @@
                             <th>Destinataire</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($historique as $tx): ?>
-                            <tr>
-                                <td><?= date('d/m/Y H:i', strtotime($tx['date_operation'])) ?></td>
-                                <td><span class="badge bg-secondary"><?= ucfirst($tx['type_libelle']) ?></span></td>
-                                <td><?= number_format($tx['montant'], 0, ',', ' ') ?> Ar</td>
-                                <td><?= number_format($tx['frais'], 0, ',', ' ') ?> Ar</td>
-                                <td><?= $tx['destinataire_tel'] ? esc($tx['destinataire_tel']) : '—' ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+                    <tbody id="historiqueBody"></tbody>
                 </table>
             </div>
-            <p class="text-muted small">Total : <?= count($historique) ?> transaction(s)</p>
         <?php endif; ?>
+
+        <p class="text-muted small" id="historiqueCompteur"><?= count($historique) ?> transaction(s)</p>
 
     </div>
 
     <script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/script.js') ?>"></script>
+    <script src="<?= base_url('assets/js/filtre.js') ?>"></script>
 </body>
-
 </html>

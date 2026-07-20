@@ -1,0 +1,359 @@
+/* ──────────────────────────────────────────────
+   style.css — Palette sans bleu, minimaliste
+   ────────────────────────────────────────────── */
+
+:root {
+    --bs-primary: #1b4332;
+    --bs-primary-rgb: 27, 67, 50;
+    --bs-link-color: #2d6a4f;
+    --bs-link-hover-color: #1b4332;
+
+    --color-primary: #1b4332;
+    --color-primary-light: #2d6a4f;
+    --color-accent: #40916c;
+    --color-surface: #f4f7f5;
+    --color-card: #ffffff;
+    --color-text: #1a1a2e;
+    --color-muted: #6c757d;
+    --color-border: #dee2e6;
+    --color-success: #2d6a4f;
+    --color-warning: #e9c46a;
+    --color-danger: #e63946;
+    --color-info: #264653;
+    --color-depot: #2d6a4f;
+    --color-retrait: #e9c46a;
+    --color-transfert: #264653;
+    --color-historique: #6c757d;
+    --radius: 0.625rem;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --transition: 0.2s ease;
+}
+
+/* ── Base ─────────────────────────────────── */
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--color-surface);
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+a:hover {
+    color: var(--color-primary);
+}
+
+/* ── Navbar ───────────────────────────────── */
+
+.navbar {
+    background: var(--color-primary) !important;
+    box-shadow: var(--shadow);
+}
+.navbar .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* ── Cards ────────────────────────────────── */
+
+.card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    background: var(--color-card);
+    transition: box-shadow var(--transition);
+}
+.card:hover {
+    box-shadow: var(--shadow);
+}
+.card-title {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ── Boutons ──────────────────────────────── */
+
+.btn {
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: all var(--transition);
+}
+.btn-primary {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+}
+.btn-success {
+    background: var(--color-depot);
+    border-color: var(--color-depot);
+}
+.btn-success:hover {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+}
+.btn-warning {
+    background: var(--color-retrait);
+    border-color: var(--color-retrait);
+    color: var(--color-text);
+}
+.btn-warning:hover {
+    background: #d4a843;
+    border-color: #d4a843;
+    color: var(--color-text);
+}
+.btn-info {
+    background: var(--color-transfert);
+    border-color: var(--color-transfert);
+}
+.btn-info:hover {
+    background: #1a3640;
+    border-color: #1a3640;
+}
+.btn-info.text-white {
+    color: #fff !important;
+}
+.btn-outline-success {
+    color: var(--color-depot);
+    border-color: var(--color-depot);
+}
+.btn-outline-success:hover {
+    background: var(--color-depot);
+    color: #fff;
+}
+.btn-outline-warning {
+    color: #b8860b;
+    border-color: var(--color-retrait);
+}
+.btn-outline-warning:hover {
+    background: var(--color-retrait);
+    color: var(--color-text);
+}
+.btn-outline-info {
+    color: var(--color-transfert);
+    border-color: var(--color-transfert);
+}
+.btn-outline-info:hover {
+    background: var(--color-transfert);
+    color: #fff;
+}
+.btn-outline-secondary {
+    color: var(--color-historique);
+    border-color: var(--color-historique);
+}
+.btn-outline-secondary:hover {
+    background: var(--color-historique);
+    color: #fff;
+}
+.btn-dark {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+.btn-dark:hover {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+}
+
+/* ── Forms ────────────────────────────────── */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(45, 106, 79, 0.15);
+}
+.form-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+}
+.form-check-input:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* ── Tables ───────────────────────────────── */
+
+.table {
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.table thead.table-dark th {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(45, 106, 79, 0.04);
+}
+
+/* ── Alerts ───────────────────────────────── */
+
+.alert {
+    border-radius: var(--radius);
+    border: none;
+    font-size: 0.9rem;
+}
+.alert-danger {
+    background: #fce4e6;
+    color: #842029;
+}
+.alert-success {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+.alert-info {
+    background: #d6e8ec;
+    color: #0c3547;
+}
+
+/* ── Badges ───────────────────────────────── */
+
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* ── Auth cards (login) ───────────────────── */
+
+.auth-card {
+    max-width: 420px;
+    width: 100%;
+}
+.auth-card .card-body {
+    padding: 2.5rem;
+}
+.auth-logo {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+/* ── Dashboard buttons ────────────────────── */
+
+.d-grid .btn {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+}
+
+/* ── Badge montant ────────────────────────── */
+
+.montant-badge {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+/* ── Navbar admin ─────────────────────────── */
+
+.navbar-brand-admin {
+    font-size: 1rem;
+}
+
+/* ── Nav tabs (admin frais) ───────────────── */
+
+.nav-tabs .nav-link {
+    color: var(--color-primary-light);
+    border: none;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition);
+}
+.nav-tabs .nav-link.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    background: transparent;
+}
+.nav-tabs .nav-link:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-accent);
+}
+
+/* ── Modal ────────────────────────────────── */
+
+.modal-content {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+.modal-header {
+    border-bottom-color: var(--color-border);
+}
+.modal-header .modal-title {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+.modal-footer {
+    border-top-color: var(--color-border);
+}
+
+/* ── Solde display ────────────────────────── */
+
+.solde-display {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-success);
+    letter-spacing: -0.02em;
+}
+
+/* ── Transfert radio cards ────────────────── */
+
+.form-check {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    transition: all var(--transition);
+    margin-bottom: 0.5rem;
+}
+.form-check:hover {
+    border-color: var(--color-accent);
+    background: rgba(64, 145, 108, 0.03);
+}
+.form-check:has(.form-check-input:checked) {
+    border-color: var(--color-primary);
+    background: rgba(27, 67, 50, 0.05);
+}
+
+/* ── Historique filtres ───────────────────── */
+
+.filtre-card {
+    border-left: 3px solid var(--color-primary);
+}
+
+/* ── Responsive tweaks ────────────────────── */
+
+@media (max-width: 768px) {
+    .auth-card .card-body {
+        padding: 1.5rem;
+    }
+    .table {
+        font-size: 0.85rem;
+    }
+}
+
+/* ── Animations ───────────────────────────── */
+
+.card,
+.alert {
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Footer spacer ────────────────────────── */
+
+body {
+    padding-bottom: 2rem;
+}

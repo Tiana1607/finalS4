@@ -2,17 +2,22 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion Opérateur</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
 <body class="bg-light d-flex align-items-center" style="min-height: 100vh;">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h4 class="text-center mb-4">Connexion Opérateur</h4>
+            <div class="card shadow-sm auth-card">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <img src="<?= base_url('assets/img/online-payment.png') ?>" alt="Logo" class="auth-logo">
+                        <h4 class="fw-bold">Connexion Opérateur</h4>
+                    </div>
 
                     <?php if (session()->getFlashdata('error')): ?>
                         <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
@@ -32,18 +37,22 @@
                         <?= csrf_field() ?>
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" value="<?= old('email') ?>" required>
+                            <input type="email" name="email" class="form-control" value="<?= old('email') ?>" required autofocus>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Mot de passe</label>
                             <input type="password" name="password" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-dark w-100">Se connecter</button>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary text-center">Se connecter</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/script.js') ?>"></script>
 </body>
 </html>

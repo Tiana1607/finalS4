@@ -297,7 +297,24 @@ class ClientsController extends BaseController
     public function historique()
     {
         $clientId = session()->get('client_id');
-        $client   = $this->clientsModel->find($clientId);
+
+        // Si requête AJAX → retourner du JSON
+        if ($this->request->getHeader('X-Requested-With') === 'XMLHttpRequest') {
+            $filtres = [
+                'type_operation' => $this->request->getGet('type_operation'),
+                'date_debut'     => $this->request->getGet('date_debut'),
+                'date_fin'       => $this->request->getGet('date_fin'),
+                'montant_min'    => $this->request->getGet('montant_min'),
+                'montant_max'    => $this->request->getGet('montant_max'),
+            ];
+            $triDate = $this->request->getGet('tri_date') ?: 'DESC';
+            $historique = $this->transactionsModel->getHistoriqueFiltre($clientId, $filtres, $triDate);
+
+            return $this->response->setJSON(['historique' => $historique]);
+        }
+
+        // Sinon → formulaire classique
+        $client = $this->clientsModel->find($clientId);
 
         $filtres = [
             'type_operation' => $this->request->getPost('type_operation'),

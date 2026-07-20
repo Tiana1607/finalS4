@@ -2,32 +2,38 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Frais</title>
     <link rel="icon" href="<?= base_url('assets/img/online-payment.png') ?>">
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
 <body class="bg-light">
-<div class="container py-5">
+
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Opérateur</span>
+            <a href="/admin/logout" class="btn btn-outline-light btn-sm">Déconnexion</a>
+        </div>
+    </nav>
+
+<div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <h3 class="text-center mb-4">Gestion des Frais</h3>
+            <h4 class="mb-4">Gestion des Frais</h4>
 
             <?php if (session()->getFlashdata('success')): ?>
-                <div class="alert alert-success"><?= esc(session()->getFlashdata('success')) ?></div>
+                <div class="alert alert-success alert-dismissible fade show">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                </div>
             <?php endif; ?>
 
             <?php if (session()->getFlashdata('error')): ?>
-                <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
-            <?php endif; ?>
-
-            <?php if (session()->getFlashdata('errors')): ?>
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                            <li><?= esc($error) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
                 </div>
             <?php endif; ?>
 
@@ -67,7 +73,7 @@
                                        value="<?= old('frais') ?>" required>
                             </div>
                             <div class="col-md-3">
-                                <button type="submit" class="btn btn-dark w-100">Ajouter</button>
+                                <button type="submit" class="btn btn-primary w-100">Ajouter</button>
                             </div>
                         </div>
                     </form>
@@ -101,13 +107,20 @@
                                         <td><?= number_format($t['frais'], 0, ',', '.') ?></td>
                                         <td class="text-end">
                                             <button type="button" class="btn btn-warning btn-sm"
-                                                    onclick="openEditPopup(<?= esc($t['id']) ?>)">
+                                                    data-bs-toggle="modal" data-bs-target="#editModal"
+                                                    data-id="<?= esc($t['id']) ?>"
+                                                    data-type="<?= esc($t['type_operation_id']) ?>"
+                                                    data-min="<?= esc($t['montant_min']) ?>"
+                                                    data-max="<?= esc($t['montant_max']) ?>"
+                                                    data-frais="<?= esc($t['frais']) ?>">
                                                 Modifier
                                             </button>
-                                            <form action="/admin/frais/supprimer/<?= esc($t['id']) ?>" method="post" class="d-inline"
-                                                  onsubmit="return confirm('Supprimer cette tranche ?')">
+                                            <form action="/admin/frais/supprimer/<?= esc($t['id']) ?>" method="post" class="d-inline">
                                                 <?= csrf_field() ?>
-                                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                        data-confirm="Supprimer cette tranche ?"
+                                                        data-confirm-title="Supprimer la tranche"
+                                                        data-confirm-btn="Supprimer">Supprimer</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -125,14 +138,53 @@
     </div>
 </div>
 
+<!-- Modale d'édition inline (remplace le popup) -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form action="/admin/frais/modifier/" method="post" id="editModalForm">
+                <?= csrf_field() ?>
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifier la tranche</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="type_operation_id" id="editType" value="">
+                    <div class="mb-3">
+                        <label class="form-label">Montant minimum (Ar)</label>
+                        <input type="number" step="0.01" name="montant_min" id="editMin" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Montant maximum (Ar)</label>
+                        <input type="number" step="0.01" name="montant_max" id="editMax" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Frais (Ar)</label>
+                        <input type="number" step="0.01" name="frais" id="editFrais" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/script.js') ?>"></script>
 <script>
-function openEditPopup(id) {
-    window.open(
-        '/admin/frais/modifier/' + id,
-        'Modifier la tranche',
-        'width=600,height=500,scrollbars=yes,resizable=yes'
-    );
-}
+document.getElementById('editModal').addEventListener('show.bs.modal', function (event) {
+    const btn = event.relatedTarget;
+    const id = btn.getAttribute('data-id');
+    const form = document.getElementById('editModalForm');
+    form.action = '/admin/frais/modifier/' + id;
+    document.getElementById('editType').value = btn.getAttribute('data-type');
+    document.getElementById('editMin').value = btn.getAttribute('data-min');
+    document.getElementById('editMax').value = btn.getAttribute('data-max');
+    document.getElementById('editFrais').value = btn.getAttribute('data-frais');
+});
 </script>
 </body>
 </html>

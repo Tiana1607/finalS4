@@ -57,4 +57,4 @@ $routes->post('/client/transfert', 'Client\ClientsController::transfert', ['filt
 
 // Client : Historique
 $routes->get('/client/historique', 'Client\ClientsController::showHistorique', ['filter' => 'clientAuth']);
-$routes->post('/client/historique', 'Client\ClientsController::historique', ['filter' => 'clientAuth']);
+$routes->match(['get', 'post'], '/client/historique/filtrer', 'Client\ClientsController::historique', ['filter' => 'clientAuth']);
