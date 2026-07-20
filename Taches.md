@@ -14,59 +14,59 @@
 ## Coté Opérateur : Jérémie
 
 - Login ()
-    - AdminModel (recherche par email) []
-    - Fonction de vérification des champs (validation + password) []
-    - Gestion de la session admin (session()->set()) []
-    - Filter AdminAuth (protection des routes /admin/*) []
-    - vue login []
+    - AdminModel (recherche par email) [x] Jérémie
+    - Fonction de vérification des champs (validation + password) [x] Jérémie
+    - Gestion de la session admin (session()->set()) [x] Jérémie
+    - Filter AdminAuth (protection des routes /admin/*) [x] Jérémie
+    - vue login [x] Jérémie
 - Page Liste préfixe (page qui liste les préfixes disponible)
-    - PrefixeModel []
-    - Fonction ajouter un préfixe (insert + validation format) []
-    - Fonction supprimer un préfixe []
-    - Fonction lister les préfixes []
-    - vue prefixe []
+    - PrefixeModel [x] Jérémie
+    - Fonction ajouter un préfixe (insert + validation format) [x] Jérémie
+    - Fonction supprimer un préfixe [x] Jérémie
+    - Fonction lister les préfixes [x] Jérémie
+    - vue prefixe [x] Jérémie
 - Page Frais (liste les frais par tranche)
-    - Fonction ajouter une tranche (insert + validation min < max) []
-    - Fonction modifier une tranche (update) []
-    - Fonction supprimer une tranche []
-    - Fonction lister les barèmes par type d'opération []
-    - Vue frais[]
+    - Fonction ajouter une tranche (insert + validation min < max) [x] Jérémie
+    - Fonction modifier une tranche (update) [x] Jérémie
+    - Fonction supprimer une tranche [x] Jérémie
+    - Fonction lister les barèmes par type d'opération [x] Jérémie
+    - Vue frais[x] Jérémie
 - Page Totale frais retrais/transfert
-    - Fonction requête SUM(frais) GROUP BY type_operation []
-    - Fonction qui formate les données en JSON pour Chart.js []
-    - Vue Totale []
+    - Fonction requête SUM(frais) GROUP BY type_operation [x] Jérémie
+    - Fonction qui formate les données en JSON pour Chart.js [x] Jérémie
+    - Vue Totale [x] Jérémie
 
-## Coté Client : Rovatiana
+## Coté Client : 
 
 - Login()
-    - ClientModel (recherche par téléphone) [x]
-    - Fonction vérifier existence + créer automatiquement si absent [x]
-    - Session client (session()->set(...)) [x]
-    - Filter ClientAuth (protection des pages dépôt/retrait/transfert/historique) [x]
-    - Vue [x]
+    - ClientModel (recherche par téléphone) [x] Rovatiana
+    - Fonction vérifier existence + créer automatiquement si absent [x] Rovatiana
+    - Session client (session()->set(...)) [x] Rovatiana
+    - Filter ClientAuth (protection des pages dépôt/retrait/transfert/historique) [x] Rovatiana
+    - Vue [x] Rovatiana
 - Page Depot 
-    - Fonction validation montant (positif, non vide) [x]
-    - Fonction créditer le solde + enregistrer la transaction [x]
-    - Vue [x]
+    - Fonction validation montant (positif, non vide) [x] Rovatiana
+    - Fonction créditer le solde + enregistrer la transaction [x] Rovatiana
+    - Vue [x] Rovatiana
 - Page Retrait
-    - Fonction validation montant + vérification solde suffisant (solde >= montant + frais) [x]
-    - Fonction calcul des frais via le barème opérateur (type = retrait) [x]
-    - Fonction débiter le solde + enregistrer la transaction [x]
-    - Vue [x]
+    - Fonction validation montant + vérification solde suffisant (solde >= montant + frais) [x] Rovatiana
+    - Fonction calcul des frais via le barème opérateur (type = retrait) [x] Rovatiana
+    - Fonction débiter le solde + enregistrer la transaction [x] Rovatiana
+    - Vue [x] Rovatiana
 - Page Transfert
-    - Fonction validation numéro destinataire existant [x]
-    - Fonction validation solde suffisant (solde >= montant + frais) [x]
-    - Fonction calcul des frais via le barème opérateur (type = transfert) [x]
-    - Option "inclure frais de retrait" : calcul + prélèvement anticipé [x]
-    - Fonction double mouvement (débit émetteur + crédit destinataire) + enregistrement transaction [x]
-    - Vue [x]
+    - Fonction validation numéro destinataire existant [x] Rovatiana
+    - Fonction validation solde suffisant (solde >= montant + frais) [x] Rovatiana
+    - Fonction calcul des frais via le barème opérateur (type = transfert) [x] Rovatiana
+    - Option "inclure frais de retrait" : calcul + prélèvement anticipé [x] Rovatiana
+    - Fonction double mouvement (débit émetteur + crédit destinataire) + enregistrement transaction [x] Rovatiana
+    - Vue [x] Rovatiana
 - Page Historique
-    - TransactionModel : requête de base (par client_id) [x]
-    - Fonction filtre par type d'opération [x]
-    - Fonction filtre par date (plage ou date précise) [x]
-    - Fonction filtre par montant (min/max) [x]
-    - Fonction tri asc/desc (probablement sur la date ou le montant) [x]
-    - Vue [x]
+    - TransactionModel : requête de base (par client_id) [x] Rovatiana
+    - Fonction filtre par type d'opération [x] Rovatiana
+    - Fonction filtre par date (plage ou date précise) [x] Rovatiana
+    - Fonction filtre par montant (min/max) [x] Rovatiana
+    - Fonction tri asc/desc (probablement sur la date ou le montant) [x] Rovatiana
+    - Vue [x] Rovatiana
 
 # Version 2
 
@@ -81,28 +81,28 @@
 ## Coté Opérateur : Jérémie
 
 - Page Liste préfixe (mise à jour)
-    - Fonction lister les préfixes avec leur opérateur associé []
-    - Formulaire ajout préfixe : sélection de l'opérateur []
+    - Fonction lister les préfixes avec leur opérateur associé [x] Jérémie
+    - Formulaire ajout préfixe : sélection de l'opérateur [x] Jérémie
 - Page Gestion des opérateurs
-    - OperateurModel []
-    - Fonction ajouter un opérateur []
-    - Fonction modifier un opérateur []
-    - Fonction supprimer un opérateur []
-    - Fonction lister les opérateurs []
-    - Vue opérateurs []
+    - OperateurModel [x] Jérémie
+    - Fonction ajouter un opérateur [x] Jérémie
+    - Fonction modifier un opérateur [x] Jérémie
+    - Fonction supprimer un opérateur [x] Jérémie
+    - Fonction lister les opérateurs [x] Jérémie
+    - Vue opérateurs [x] Jérémie
 - Page Commissions externes
-    - CommissionModel []
-    - Fonction ajouter/configurer un % de commission par opérateur []
-    - Fonction modifier un % de commission []
-    - Fonction lister les commissions par opérateur []
-    - Vue commissions []
+    - CommissionModel [x] Jérémie
+    - Fonction ajouter/configurer un % de commission par opérateur [x] Jérémie
+    - Fonction modifier un % de commission [x] Jérémie
+    - Fonction lister les commissions par opérateur [x] Jérémie
+    - Vue commissions [x] Jérémie
 - Page Totale frais retrais/transfert (mise à jour)
-    - Fonction séparation gains internes / gains externes (par opérateur) []
-    - Fonction SUM(commission_externe) par opérateur []
-    - Vue Totale : blocs distincts interne / externe []
+    - Fonction séparation gains internes / gains externes (par opérateur) [x] Jérémie
+    - Fonction SUM(commission_externe) par opérateur [x] Jérémie
+    - Vue Totale : blocs distincts interne / externe [x] Jérémie
 - Page Montants à envoyer aux opérateurs
-    - Fonction requête SUM(montant) GROUP BY operateur_destinataire_id (transferts externes uniquement) []
-    - Vue montants à reverser par opérateur []
+    - Fonction requête SUM(montant) GROUP BY operateur_destinataire_id (transferts externes uniquement) [x] Jérémie
+    - Vue montants à reverser par opérateur [x] Jérémie
 
 ## Coté Client : Rovatiana
 
