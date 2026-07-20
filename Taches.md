@@ -7,7 +7,7 @@
 - Migration table baremes []
 - Migration table transactions []
 - Migration table clients []
-- Seeder client de test []
+- Seeder donneesTest []
 
 ## Coté Opérateur :
 
