@@ -47,21 +47,21 @@
     - Fonction créditer le solde + enregistrer la transaction [x]
     - Vue [x]
 - Page Retrait
-    - Fonction validation montant + vérification solde suffisant (solde >= montant + frais) []
-    - Fonction calcul du frais via le barème opérateur (type = retrait) []
-    - Fonction débiter le solde + enregistrer la transaction []
-    - Vue
+    - Fonction validation montant + vérification solde suffisant (solde >= montant + frais) [x]
+    - Fonction calcul des frais via le barème opérateur (type = retrait) [x]
+    - Fonction débiter le solde + enregistrer la transaction [x]
+    - Vue [x]
 - Page Transfert
-    - Fonction validation numéro destinataire existant []
-    - Fonction validation solde suffisant (solde >= montant + frais) []
-    - Fonction calcul du frais via le barème opérateur (type = transfert) []
-    - Fonction double mouvement (débit émetteur + crédit destinataire) + enregistrement transaction 
-    - Vue
+    - Fonction validation numéro destinataire existant [x]
+    - Fonction validation solde suffisant (solde >= montant + frais) [x]
+    - Fonction calcul des frais via le barème opérateur (type = transfert) [x]
+    - Fonction double mouvement (débit émetteur + crédit destinataire) + enregistrement transaction [x]
+    - Vue [x]
 
 - Page Historique
-    - TransactionModel : requête de base (par client_id) []
-    - Fonction filtre par type d'opération []
-    - Fonction filtre par date (plage ou date précise) []
-    - Fonction filtre par montant (min/max) []
-    - Fonction tri asc/desc (probablement sur la date ou le montant) []
-    - Vue
+    - TransactionModel : requête de base (par client_id) [x]
+    - Fonction filtre par type d'opération [x]
+    - Fonction filtre par date (plage ou date précise) [x]
+    - Fonction filtre par montant (min/max) [x]
+    - Fonction tri asc/desc (probablement sur la date ou le montant) [x]
+    - Vue [x]

@@ -31,6 +31,9 @@
 
                 <div class="d-grid gap-2 mt-3">
                     <a href="<?= base_url('/client/depot') ?>" class="btn btn-outline-success">Effectuer un dépôt</a>
+                    <a href="<?= base_url('/client/retrait') ?>" class="btn btn-outline-warning">Effectuer un retrait</a>
+                    <a href="<?= base_url('/client/transfert') ?>" class="btn btn-outline-info">Effectuer un transfert</a>
+                    <a href="<?= base_url('/client/historique') ?>" class="btn btn-outline-secondary">Voir l'historique</a>
                 </div>
             </div>
         </div>

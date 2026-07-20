@@ -32,3 +32,15 @@ $routes->get('/client/dashboard', 'Client\ClientsController::dashboard', ['filte
 // Client : Dépôt
 $routes->get('/client/depot', 'Client\ClientsController::showDepotForm', ['filter' => 'clientAuth']);
 $routes->post('/client/depot', 'Client\ClientsController::depot', ['filter' => 'clientAuth']);
+
+// Client : Retrait
+$routes->get('/client/retrait', 'Client\ClientsController::showRetraitForm', ['filter' => 'clientAuth']);
+$routes->post('/client/retrait', 'Client\ClientsController::retrait', ['filter' => 'clientAuth']);
+
+// Client : Transfert
+$routes->get('/client/transfert', 'Client\ClientsController::showTransfertForm', ['filter' => 'clientAuth']);
+$routes->post('/client/transfert', 'Client\ClientsController::transfert', ['filter' => 'clientAuth']);
+
+// Client : Historique
+$routes->get('/client/historique', 'Client\ClientsController::showHistorique', ['filter' => 'clientAuth']);
+$routes->post('/client/historique', 'Client\ClientsController::historique', ['filter' => 'clientAuth']);
