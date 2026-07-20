@@ -18,16 +18,21 @@
     </nav>
 
 <div class="container page-shell">
+    
     <div class="row justify-content-center">
+    
         <div class="col-md-10">
 
             <div class="page-header">
+                
                 <div>
+                    <a href="/admin/dashboard" class="back-link">&larr; Retour au tableau de bord</a>
                     <div class="page-kicker">Réseau</div>
                     <h1 class="page-title">Gestion des Préfixes</h1>
                     <p class="page-subtitle">Contrôlez les numéros autorisés et les opérateurs externes.</p>
                 </div>
             </div>
+            
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show">
