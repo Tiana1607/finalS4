@@ -101,6 +101,13 @@ CREATE TABLE transactions (
 );
 
 
+CREATE TABLE promotion (
+    id INTER PRIMARY KEY AUTOINCREMENT,
+    operateur_id INTEGER NOT NULL,
+    pourcentage REAL,
+    FOREIGN KEY (operateur_id) REFERENCES operateurs(id) ON DELETE CASCADE
+)
+
 -- ======================================================
 -- SEED DATA
 -- ======================================================

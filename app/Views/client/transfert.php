@@ -27,6 +27,7 @@
                         <div class="text-center mb-4">
                             <div class="page-kicker">Envoi d'argent</div>
                             <h1 class="page-title">Transfert</h1>
+                            <h1 class="page-title">Une promotion de 10% est appliquer</h1>
                             <p class="text-muted mb-1">Solde disponible</p>
                             <p class="solde-display mb-0"><?= number_format($client['solde'], 0, ',', ' ') ?> Ar</p>
                         </div>

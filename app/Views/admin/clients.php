@@ -54,7 +54,7 @@
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>#</th>
+                                        <!-- <th>#</th> -->
                                         <th>Téléphone</th>
                                         <th>Solde (Ar)</th>
                                         <th>Transactions</th>
@@ -65,7 +65,7 @@
                                 <tbody>
                                     <?php foreach ($clients as $c): ?>
                                         <tr>
-                                            <td><?= esc($c['id']) ?></td>
+                                            <!-- <td><?= esc($c['id']) ?></td> -->
                                             <td><?= esc(formaterTelephone($c['telephone'])) ?></td>
                                             <td>
                                                 <?php

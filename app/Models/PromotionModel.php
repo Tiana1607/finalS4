@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Operateur;
+namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClientModel extends Model
+class PromotionModel extends Model
 {
-    protected $table            = 'clients';
+    protected $table            = 'promotion';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['telephone', 'solde', 'date_creation'];
+    protected $allowedFields    = ['operateur_id', 'pourcentage'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -41,17 +41,17 @@ class ClientModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    /**
-     * Liste tous les clients avec le nombre de transactions.
-     */
-    public function getAllWithStats(): array
+    // public function getPctByOperateurId(int $operateurId): float
+    // {
+    //     $row = $this->where('operateur_id', $operateurId)->first();
+
+    //     return $row ? (float) $row['pourcentage'] : 0.0;
+    // }
+
+    public function calculerPromotion(float $frais, int $operateurId): float
     {
-        return $this->db->table('clients c')
-            ->select('c.*, COUNT(t.id) AS nb_transactions')
-            ->join('transactions t', 't.client_id = c.id', 'left') 
-            ->groupBy('c.id')
-            ->orderBy('c.date_creation', 'DESC')
-            ->get()
-            ->getResultArray();
+        $pct = $this->getPctByOperateurId($operateurId);
+
+        return round($frais * $pct / 100, 2);
     }
 }

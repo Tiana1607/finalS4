@@ -121,3 +121,9 @@
 - Page Historique (mise à jour)
     - TransactionsModel : jointure transferts_groupes + groupe_nb [x] Rovatiana
 - Ajout truc de commission dans les calculs [x]
+
+Première aléa:
+
+promotion, sur les frais de transfert. en % sur le frais de transfert du meme opérateur.
+il faut créer cela dans la base
+page pour changer la promotion

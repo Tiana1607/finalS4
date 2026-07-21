@@ -10,6 +10,7 @@ use App\Models\PrefixesModel;
 use App\Models\OperateurModel;
 use App\Models\TransfertsGroupeModel;
 use App\Models\CommissionsModel;
+use App\Models\PromotionModel;
 
 class TransfertController extends BaseController
 {
@@ -20,6 +21,7 @@ class TransfertController extends BaseController
     protected OperateurModel $operateurModel;
     protected TransfertsGroupeModel $groupeModel;
     protected CommissionsModel $commissionsModel;
+    protected PromotionModel $promotion_model;
 
     protected int $typeOperationRetrait  = 2;
     protected int $typeOperationTransfert = 3;
@@ -33,6 +35,7 @@ class TransfertController extends BaseController
         $this->operateurModel    = new OperateurModel();
         $this->groupeModel       = new TransfertsGroupeModel();
         $this->commissionsModel  = new CommissionsModel();
+        $this->promotion_model = new PromotionModel();
     }
 
     public function showForm()
@@ -86,6 +89,7 @@ class TransfertController extends BaseController
         }
         $montant = (float) $montant;
 
+        //array_filter parcours chaque éléments pour supprimer les espaces vide
         $destinataireTels = array_filter($destinataireTels, fn($t) => !empty(trim($t)));
         $destinataireTels = array_values($destinataireTels);
 
@@ -140,6 +144,8 @@ class TransfertController extends BaseController
 
         foreach ($destinatairesValides as $d) {
             $fraisTransfert = $this->trancheModel->getFrais($this->typeOperationTransfert, $montantParDest);
+            $fraisPromo= $this->promotion_model->calculerPromotion($fraisTransfert, 1);
+            $fraisTransfert-=$fraisPromo;
             $fraisRetrait   = 0;
             $commission     = 0;
 
@@ -151,8 +157,11 @@ class TransfertController extends BaseController
                 $commission = $this->commissionsModel->calculerCommission($montantParDest, $d['operateur_id']);
             }
 
+            
+
             $totalFrais       += $fraisTransfert + $fraisRetrait;
             $totalCommissions += $commission;
+            
         }
 
         $solde    = $emetteur['solde'];
@@ -187,6 +196,8 @@ class TransfertController extends BaseController
             if (!$d['est_nous'] && $d['operateur_id'] !== null) {
                 $commission = $this->commissionsModel->calculerCommission($montantParDest, $d['operateur_id']);
             }
+
+            
 
             $totalFraisDest = $fraisTransfert + $fraisRetrait + $commission;
             $creditDest     = $montantParDest + $fraisRetrait;
