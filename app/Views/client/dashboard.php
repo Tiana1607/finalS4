@@ -83,6 +83,20 @@
                             </div>
                         </a>
                     </div>
+                      <div class="col-md-6">
+                        <a href="<?= base_url('/client/epargne') ?>" class="action-card text-decoration-none">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <span class="action-icon" style="background: var(--color-transfert)">%</span>
+                                    <div>
+                                        <h5 class="card-title mb-1">Epargne</h5>
+                                        <p class="text-muted mb-0">Epargnez un pourcentage de vos fonds</p>
+                                    </div>
+                                    <span class="action-arrow">→</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                     <div class="col-md-6">
                         <a href="<?= base_url('/client/historique') ?>" class="action-card text-decoration-none">
                             <div class="card h-100">

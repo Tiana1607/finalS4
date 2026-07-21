@@ -157,3 +157,13 @@ INSERT INTO tranche_montant (type_operation_id, montant_min, montant_max, frais)
 (3, 250001,   500000,   1500),
 (3, 500001,   1000000,  2500),
 (3, 1000001,  2000000,  3000);
+
+
+CREATE TABLE epargne(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id INTEGER NOT NULL,
+    pourcentage REAL DEFAULT 0,
+    date_creation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (client_id) REFERENCES clients(id)  ON DELETE SET NULL
+);

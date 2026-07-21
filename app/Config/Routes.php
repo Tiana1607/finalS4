@@ -54,6 +54,11 @@ $routes->get('/client/logout', 'Client\AuthController::logout');
 // Client : Dashboard
 $routes->get('/client/dashboard', 'Client\AuthController::dashboard', ['filter' => 'clientAuth']);
 
+// Client : Epargne
+$routes->get('/client/epargne', 'Client\EpargneController::index', ['filter' => 'clientAuth']);
+// Client : Epargne
+$routes->post('/client/epargne', 'Client\EpargneController::getSoldes', ['filter' => 'clientAuth']);
+
 // Client : Dépôt
 $routes->get('/client/depot', 'Client\DepotController::showForm', ['filter' => 'clientAuth']);
 $routes->post('/client/depot', 'Client\DepotController::depot', ['filter' => 'clientAuth']);

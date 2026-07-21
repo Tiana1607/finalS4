@@ -35,7 +35,7 @@ class DepotController extends BaseController
         $clientId = session()->get('client_id');
 
         if (empty($montant) || !is_numeric($montant) || $montant <= 0) {
-            return redirect()->back()->withInput()->with('error', 'Veuillez saisir un montant valide supérieur à 0.');
+            return redirect()->back()->withInput()->with('error', 'Veuillez un pourcentage valide');
         }
 
         $montant = $montant;
